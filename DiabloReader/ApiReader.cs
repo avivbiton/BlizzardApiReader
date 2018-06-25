@@ -6,13 +6,29 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using DiabloReader.Models;
-    
+using System.IO;
+
 namespace DiabloReader
 {
     public class ApiReader
     {
         public static string Url { get; } = "https://eu.api.battle.net";
         public static string Key { get; set; }
+
+        public static void ReadKeyFromFile(string path)
+        {
+            if (File.Exists(path))
+            {
+
+                string key = File.ReadAllText(path);
+                Key = $"?locale=en_GB&apikey={key}";
+
+            }
+            else
+            {
+                throw new FileNotFoundException();
+            }
+        }
 
         public async Task<T> Get<T>(string query)
         {
@@ -24,7 +40,7 @@ namespace DiabloReader
                 query = ValidateFormat(query);
 
                 HttpResponseMessage responseMessage = await client.GetAsync(Url + query + Key);
-                if(responseMessage.IsSuccessStatusCode)
+                if (responseMessage.IsSuccessStatusCode)
                 {
                     string json = await responseMessage.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<T>(json);

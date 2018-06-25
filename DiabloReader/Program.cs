@@ -16,7 +16,7 @@ namespace DiabloReader
         
         static void Main(string[] args)
         {
-            ApiReader.Key = "?locale=en_GB&apikey=jgb8rxx49hhsp6mvcn37n4657hr67pa5";
+            ApiReader.ReadKeyFromFile("apikey.txt");
             RunAsync().GetAwaiter().GetResult();
             Console.ReadLine();
         }
