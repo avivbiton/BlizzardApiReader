@@ -3,3 +3,5 @@
 ################################################################################
 
 /DiabloReader/bin/Debug
+/DiabloReader/obj/Debug
+/.vs/DiabloReader/v15/Server/sqlite3
