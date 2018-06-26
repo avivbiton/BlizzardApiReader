@@ -1,5 +1,5 @@
 # BlizzardApiReader
-.net framework C# projects tha reads the api for blizzard games and convert them to C# objects, currently only supports diablo 3
+.net framework C# project, reads the api for blizzard games and convert them to C# objects, currently only supports diablo 3
 
 # More work need to be done
 Not all of the Api requests are done, if you wish to add some, please do.
