@@ -2,8 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/DiabloReader/bin/Debug
-/DiabloReader/obj/Debug
-/.vs/DiabloReader/v15/Server/sqlite3
+/BlizzardApiReader/bin/Debug
+/BlizzardApiReader/obj/Debug
+/.vs/BlizzardApiReader/v15/Server/sqlite3
 /.vs/
-/DiabloReader/apikey.txt
+/BlizzardApiReader/apikey.txt
