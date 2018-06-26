@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiabloReader.Models
+namespace BlizzardApiReader.Diablo.Models
 {
-    public class BattleAccount : IApiReadable
+    public class BattleAccount
     {
         public string battleTag { get; set; }
         public int paragonLevel { get; set; }

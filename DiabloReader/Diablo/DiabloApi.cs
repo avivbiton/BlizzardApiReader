@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiabloReader.Models;
+using BlizzardApiReader.Diablo.Models;
 
-namespace DiabloReader
+namespace BlizzardApiReader.Diablo
 {
     public static class DiabloApi
     {
-
-        public static void SetKey(string key)
-        {
-            ApiReader.Key = key;
-        }
 
         public static async Task<BattleAccount> GetApiAccount(string battleTag)
         {

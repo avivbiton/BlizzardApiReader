@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiabloReader.Models
+namespace BlizzardApiReader.Diablo.Models
 {
-    public class StoryAct : IApiReadable
+    public class StoryAct 
     {
         public string slug { get; set; }
         public short number { get; set; }

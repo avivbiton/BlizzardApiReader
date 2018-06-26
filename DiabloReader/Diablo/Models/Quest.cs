@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiabloReader.Models
+namespace BlizzardApiReader.Diablo.Models
 {
     public class Quest
     {

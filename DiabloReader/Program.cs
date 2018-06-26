@@ -1,11 +1,13 @@
-﻿using DiabloReader.Models;
+﻿using BlizzardApiReader.Diablo.Models;
+using BlizzardApiReader.Diablo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace DiabloReader
+namespace BlizzardApiReader
 {
     /// <summary>
     /// currently used for testing 
@@ -13,10 +15,10 @@ namespace DiabloReader
     class Program
     {
 
-        
+
         static void Main(string[] args)
         {
-            ApiReader.ReadKeyFromFile("apikey.txt");
+            ApiReader.ReadKeyFromFile(Directory.GetCurrentDirectory() + "/BlizzardApiReader/" + "apikey.txt");
             RunAsync().GetAwaiter().GetResult();
             Console.ReadLine();
         }
@@ -26,13 +28,13 @@ namespace DiabloReader
             Console.WriteLine("insert battle tag");
             string tag = Console.ReadLine();
 
-            BattleAccount acc =  await DiabloApi.GetApiAccount(tag);
-            foreach(var hero in acc.heroes)
+            BattleAccount acc = await DiabloApi.GetApiAccount(tag);
+            foreach (var hero in acc.heroes)
             {
                 Console.WriteLine($"class name: {hero.className}, id: {hero.id}");
             }
 
-            foreach(var killName in acc.kills.Keys)
+            foreach (var killName in acc.kills.Keys)
             {
                 Console.WriteLine($"Killed {acc.kills[killName]} {killName}");
             }
@@ -44,9 +46,9 @@ namespace DiabloReader
             var acts = await DiabloApi.GetActIndex();
 
             Console.WriteLine("total acts: " + acts.Count);
-           
+
         }
 
-    
+
     }
 }

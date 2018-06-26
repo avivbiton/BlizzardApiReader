@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-namespace DiabloReader.Models
+namespace BlizzardApiReader.Diablo.Models
 {
     public class Hero
     {
