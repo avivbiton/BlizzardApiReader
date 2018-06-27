@@ -2,6 +2,11 @@
 C# .net framework project, reads the Blizzard API and gets a response as json and converts them to objects, simple as that.
 This library can be used if you wish to create an application or software that require you to use any of Blizzard many APIs.
 
+# First timers friendly
+As I am also new to open source projects, I want to make this project first timer friendly as much as possible.
+Don't be afraid to try and contribute and make mistakes, then we can learn and improve together.
+This project is also a learning process to me, please tell me if I am doing anything wrong.
+
 # Setup
 1) Fork this repo and then clone it
 2) Compile it and put the compiled dll inside your project.
