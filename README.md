@@ -11,8 +11,8 @@ This library can be used if you wish to create an application or software that r
 
 # Usage
 You will need to apply for an API key, head to https://dev.battle.net/ to get one.
-After that, see the Setup section above and make sure you follow all the steps.
-ead the wiki for more detailed information about this library, though methods are pretty straight forward.
+After that, see the Setup section above and make sure you follow all the steps.  
+Read the wiki for more detailed information about this library, though methods are pretty straight forward.
 
 # Contributing
 Anyone is welcome to contribue to this project.
@@ -24,7 +24,7 @@ There is also unoffical hearthstone api, I am okay with implementing that as wel
 Additionally, we need help creating a wiki, any help is appreciated.
 
 # Credits
-Aviv Biton - for creating and coding the api for Diablo 3.
+Aviv Biton - for creating and coding the api for Diablo 3.  
 Anyone contributing are welcome to edit this and add them to the credits section.
 
 # License
