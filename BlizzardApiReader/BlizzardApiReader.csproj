@@ -49,6 +49,7 @@
     <Compile Include="Diablo\DiabloApi.cs" />
     <Compile Include="Diablo\Models\Artisan.cs" />
     <Compile Include="Diablo\Models\BattleAccount.cs" />
+    <Compile Include="Diablo\Models\DetailedArtisan.cs" />
     <Compile Include="Diablo\Models\Hero.cs" />
     <Compile Include="Diablo\Models\Quest.cs" />
     <Compile Include="Diablo\Models\Season.cs" />

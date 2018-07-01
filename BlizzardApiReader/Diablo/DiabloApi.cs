@@ -45,6 +45,8 @@ namespace BlizzardApiReader.Diablo
 
         #region D# artisan and recipe api
 
+
+
         #endregion
     }
 }
