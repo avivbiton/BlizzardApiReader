@@ -58,6 +58,22 @@ namespace BlizzardApiReader
 
             Console.WriteLine("total acts: " + acts.Count);
 
+            Console.WriteLine("==================================================================");
+            DetailedArtisan artisan = await api.GetArtisan("blacksmith");
+            Console.WriteLine($"artisan tiers: {artisan.tiers.Count}");
+            int totalRecipes = 0;
+            foreach(var tier in artisan.tiers)
+            {
+                totalRecipes += tier.trainedRecipes.Count;
+            }
+            Console.WriteLine($"there are a total of {totalRecipes} crafting recipes in game");
+
+            // get specific recipe
+
+            DetailedArtisan.ArtisanRecipe recipe = await api.GetArtisanRecipe("blacksmith", "apprentice-flamberge");
+            Console.WriteLine($"this recipe produce: {recipe.itemProduced.name}");
+
+
         }
 
 
