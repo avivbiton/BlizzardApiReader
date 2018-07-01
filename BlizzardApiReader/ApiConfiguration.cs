@@ -9,6 +9,8 @@ namespace BlizzardApiReader
     public enum Region { EU, KR, SEA, TW, US  }
     public enum Locale { en_GB, ko_KR, zh_TW, en_US }
 
+
+    //TODO: add caching?
     public class ApiConfiguration
     {
         public Region ApiRegion;
