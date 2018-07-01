@@ -7,3 +7,5 @@
 /.vs/BlizzardApiReader/v15/Server/sqlite3
 /.vs/
 /BlizzardApiReader/apikey.txt
+/BlizzardApiReader/bin/Release
+/BlizzardApiReader/obj/Release
