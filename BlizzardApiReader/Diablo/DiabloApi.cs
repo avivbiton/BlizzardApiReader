@@ -45,6 +45,21 @@ namespace BlizzardApiReader.Diablo
 
         #region D# artisan and recipe api
 
+        public async Task<DetailedArtisan> GetArtisan(string artisanSlug)
+        {
+            string query = $"/d3/data/artisan/{artisanSlug}/";
+            return await Reader.Get<DetailedArtisan>(query);
+        }
+
+        public async Task<DetailedArtisan.ArtisanRecipe> GetArtisanRecipe(string artisanSlug, string recipeSlug)
+        {
+            string query = $"/d3/data/artisan/{artisanSlug}/recipe/{recipeSlug}/";
+            return await Reader.Get<DetailedArtisan.ArtisanRecipe>(query);
+        }
+
+
+
+
         #endregion
     }
 }
