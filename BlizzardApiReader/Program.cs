@@ -18,7 +18,6 @@ namespace BlizzardApiReader
 
         static void Main(string[] args)
         {
-            ApiReader.ReadKeyFromFile(Directory.GetCurrentDirectory() + "/BlizzardApiReader/" + "apikey.txt");
             RunAsync().GetAwaiter().GetResult();
             Console.ReadLine();
         }
@@ -28,7 +27,19 @@ namespace BlizzardApiReader
             Console.WriteLine("insert battle tag");
             string tag = Console.ReadLine();
 
-            BattleAccount acc = await DiabloApi.GetApiAccount(tag);
+            string key = ReadKeyFromFile(Directory.GetCurrentDirectory() + "/apikey.txt");
+
+            ApiReader reader = new ApiReader(new ApiConfiguration()
+            {
+                ApiRegion = Region.EU,
+                locale = Locale.en_GB,
+                Key = key
+            });
+
+            DiabloApi api = new DiabloApi(reader);
+         
+
+            BattleAccount acc = await api.GetApiAccount(tag);
             foreach (var hero in acc.heroes)
             {
                 Console.WriteLine($"class name: {hero.className}, id: {hero.id}");
@@ -39,16 +50,31 @@ namespace BlizzardApiReader
                 Console.WriteLine($"Killed {acc.kills[killName]} {killName}");
             }
 
-            StoryAct act1 = await DiabloApi.GetAct(1);
+            StoryAct act1 = await api.GetAct(1);
 
             Console.WriteLine($"act 1 name: {act1.name}");
 
-            var acts = await DiabloApi.GetActIndex();
+            var acts = await api.GetActIndex();
 
             Console.WriteLine("total acts: " + acts.Count);
 
         }
 
+
+        public static string ReadKeyFromFile(string path)
+        {
+            if (File.Exists(path))
+            {
+
+                string key = File.ReadAllText(path);
+                return key;
+
+            }
+            else
+            {
+                throw new FileNotFoundException();
+            }
+        }
 
     }
 }
