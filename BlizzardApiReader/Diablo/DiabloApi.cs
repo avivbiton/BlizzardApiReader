@@ -7,32 +7,37 @@ using BlizzardApiReader.Diablo.Models;
 
 namespace BlizzardApiReader.Diablo
 {
-    public static class DiabloApi
+    public class DiabloApi
     {
 
-        public static async Task<BattleAccount> GetApiAccount(string battleTag)
+        public ApiReader Reader;
+
+        public DiabloApi(ApiReader _reader)
         {
-            ApiReader reader = new ApiReader();
+            Reader = _reader;
+        }
+
+
+        public async Task<BattleAccount> GetApiAccount(string battleTag)
+        {
             string query = $"/d3/profile/{battleTag}/";
-            return await reader.Get<BattleAccount>(query);
+            return await Reader.Get<BattleAccount>(query);
         }
 
 
         #region D3 Act Api
 
-        public static async Task<List<StoryAct>> GetActIndex()
+        public async Task<List<StoryAct>> GetActIndex()
         {
-            ApiReader reader = new ApiReader();
             string query = $"/d3/data/act/";
-            var results = await reader.Get<Dictionary<string, List<StoryAct>>>(query);
+            var results = await Reader.Get<Dictionary<string, List<StoryAct>>>(query);
             return results["acts"];
         }
 
-        public static async Task<StoryAct> GetAct(int actId)
+        public async Task<StoryAct> GetAct(int actId)
         {
-            ApiReader reader = new ApiReader();
             string query = $"/d3/data/act/{actId}/";
-            return await reader.Get<StoryAct>(query);
+            return await Reader.Get<StoryAct>(query);
         }
 
 

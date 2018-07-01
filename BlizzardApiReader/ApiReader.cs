@@ -12,22 +12,14 @@ namespace BlizzardApiReader
 {
     public class ApiReader
     {
-        public static string Url { get; } = "https://eu.api.battle.net";
-        public static string Key { get; set; }
+        private static readonly string Url = "https://REGION.api.battle.net";
 
-        public static void ReadKeyFromFile(string path)
+        public ApiConfiguration Configuration { get; set; }
+
+
+        public ApiReader(ApiConfiguration configuration)
         {
-            if (File.Exists(path))
-            {
-
-                string key = File.ReadAllText(path);
-                Key = $"?locale=en_GB&apikey={key}";
-
-            }
-            else
-            {
-                throw new FileNotFoundException();
-            }
+            this.Configuration = configuration;
         }
 
         public async Task<T> Get<T>(string query)
@@ -39,7 +31,7 @@ namespace BlizzardApiReader
 
                 query = ValidateFormat(query);
 
-                HttpResponseMessage responseMessage = await client.GetAsync(Url + query + Key);
+                HttpResponseMessage responseMessage = await client.GetAsync(GetUrl() + query + "?locale=" + ApiConfiguration.GetLocaleString(Configuration.locale) + "&apikey=" + Configuration.Key);
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     string json = await responseMessage.Content.ReadAsStringAsync();
@@ -55,6 +47,12 @@ namespace BlizzardApiReader
         {
             s = s.Replace("#", "%23");
             return s;
+        }
+
+        private string GetUrl()
+        {
+            string region = ApiConfiguration.GetRegionString(Configuration.ApiRegion);
+            return Url.Replace("REGION", region.ToLower());
         }
     }
 }
