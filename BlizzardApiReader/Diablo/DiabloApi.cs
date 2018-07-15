@@ -10,7 +10,7 @@ namespace BlizzardApiReader.Diablo
     public class DiabloApi
     {
 
-        public ApiReader Reader;
+        private ApiReader Reader;
 
         public DiabloApi(ApiReader _reader)
         {
@@ -18,26 +18,26 @@ namespace BlizzardApiReader.Diablo
         }
 
 
-        public async Task<BattleAccount> GetApiAccount(string battleTag)
+        public async Task<BattleAccount> GetApiAccountAsync(string battleTag)
         {
             string query = $"/d3/profile/{battleTag}/";
-            return await Reader.Get<BattleAccount>(query);
+            return await Reader.GetAsync<BattleAccount>(query);
         }
 
 
         #region D3 Act Api
 
-        public async Task<List<StoryAct>> GetActIndex()
+        public async Task<List<StoryAct>> GetActIndexAsync()
         {
             string query = $"/d3/data/act/";
-            var results = await Reader.Get<Dictionary<string, List<StoryAct>>>(query);
+            var results = await Reader.GetAsync<Dictionary<string, List<StoryAct>>>(query);
             return results["acts"];
         }
 
-        public async Task<StoryAct> GetAct(int actId)
+        public async Task<StoryAct> GetActAsync(int actId)
         {
             string query = $"/d3/data/act/{actId}/";
-            return await Reader.Get<StoryAct>(query);
+            return await Reader.GetAsync<StoryAct>(query);
         }
 
 
@@ -45,16 +45,16 @@ namespace BlizzardApiReader.Diablo
 
         #region D# artisan and recipe api
 
-        public async Task<DetailedArtisan> GetArtisan(string artisanSlug)
+        public async Task<DetailedArtisan> GetArtisanAsync(string artisanSlug)
         {
             string query = $"/d3/data/artisan/{artisanSlug}/";
-            return await Reader.Get<DetailedArtisan>(query);
+            return await Reader.GetAsync<DetailedArtisan>(query);
         }
 
-        public async Task<DetailedArtisan.ArtisanRecipe> GetArtisanRecipe(string artisanSlug, string recipeSlug)
+        public async Task<DetailedArtisan.ArtisanRecipe> GetArtisanRecipeAsync(string artisanSlug, string recipeSlug)
         {
             string query = $"/d3/data/artisan/{artisanSlug}/recipe/{recipeSlug}/";
-            return await Reader.Get<DetailedArtisan.ArtisanRecipe>(query);
+            return await Reader.GetAsync<DetailedArtisan.ArtisanRecipe>(query);
         }
 
 
