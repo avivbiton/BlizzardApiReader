@@ -10,8 +10,6 @@ This project is also a learning process to me, please tell me if I am doing anyt
 # Setup
 1) Fork this repo and then clone it
 2) Compile it and put the compiled dll inside your project.
-3) Put apikey.txt file inside your project root folder with your api key.
-* The way we store the api key will be changed in the future
 
 
 # Usage
