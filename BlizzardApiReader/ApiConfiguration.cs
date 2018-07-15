@@ -9,21 +9,19 @@ namespace BlizzardApiReader
     public enum Region { EU, KR, SEA, TW, US  }
     public enum Locale { en_GB, ko_KR, zh_TW, en_US }
 
-
-    //TODO: add caching?
     public class ApiConfiguration
     {
         public Region ApiRegion;
-        public Locale locale;
-        public string Key;
+        public Locale ResultLocale;
+        public string ApiKey;
 
-        public static string GetLocaleString(Locale locale)
+        public string GetLocaleString()
         {
-            return Enum.GetName(typeof(Locale), locale);
+            return Enum.GetName(typeof(Locale), ResultLocale);
         }
-        public static string GetRegionString(Region region)
+        public string GetRegionString()
         {
-            return Enum.GetName(typeof(Region), region);
+            return Enum.GetName(typeof(Region), ApiRegion);
         }
     }
 }
