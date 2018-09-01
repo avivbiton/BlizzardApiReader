@@ -1,3 +1,5 @@
+I didn't have much time to work on this project, but will continue (hopefully) this month
+
 # Blizzard ApiReader
 C# .net framework project, reads the Blizzard API and gets a response as json and converts them to objects, simple as that.
 This library can be used if you wish to create an application or software that require you to use any of Blizzard many APIs.
