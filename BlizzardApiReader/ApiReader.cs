@@ -14,62 +14,110 @@ namespace BlizzardApiReader
     {
         private static readonly string Url = "https://REGION.api.battle.net";
 
-        public ApiConfiguration Configuration { get; set; }
-        public IRateLimiter rateLimiter { get; set; }
+        /// <summary>
+        /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
+        /// </summary>
+        private static ApiConfiguration defaultConfig { get; set; }
+        private static List<IRateLimiter> rateLimiters { get; set; }
 
+        public ApiConfiguration Configuration;
 
-        public ApiReader(ApiConfiguration configuration)
+        public ApiReader(ApiConfiguration apiConfiguration = null)
         {
-            Configuration = configuration;
+            Configuration = apiConfiguration;
+        }
+
+
+        public static void SetDefaultConfiguration(ApiConfiguration configuration)
+        {
+            defaultConfig = configuration;
+        }
+
+        public static void AddRateLimiter(IRateLimiter limiter)
+        {
+            if (rateLimiters == null)
+                rateLimiters = new List<IRateLimiter>();
+
+            rateLimiters.Add(limiter);
+        }
+
+        public static void RemoveRateLimiter(IRateLimiter limiter)
+        {
+            if (rateLimiters.Contains(limiter) == false)
+                throw new KeyNotFoundException();
+
+            rateLimiters.Remove(limiter);
+        }
+
+        public static void RemoveAllLimiters()
+        {
+            rateLimiters = null;
         }
 
         public async Task<T> GetAsync<T>(string query)
         {
-
-            if (isRateLimited()) throw new Exception("Client request was blocked by rate limiter.");
+            validateConfiguration();
+            validateRateLimiters();
 
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                query = ParseSpecialCharacters(query);
+                query = parseSpecialCharacters(query);
 
-                string parsedUrl = ParseUrl(query);
+                string parsedUrl = parseUrl(query);
 
                 HttpResponseMessage responseMessage = await client.GetAsync(parsedUrl);
+                notifyLimiters();
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     string json = await responseMessage.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<T>(json);
                 }
-
-                rateLimiter?.OnApiRequest(this);
             }
-
             return default(T);
         }
 
-
-        private bool isRateLimited()
+        private void validateConfiguration()
         {
-            if (rateLimiter == null) return false;
-
-            return rateLimiter.IsAtRateLimit();
+            if (getConfiguration() == null)
+                throw new NullReferenceException("ApiConfiguration is not set, either declare as global configuration or add it to the instance member.");
         }
 
-        private string ParseSpecialCharacters(string s)
+        private void validateRateLimiters()
+        {
+            if (rateLimiters != null)
+                if (rateLimiters.Any(i => i.IsAtRateLimit()))
+                    throw new Exception("Get api request blocked by rate Limiter");
+        }
+
+        private void notifyLimiters()
+        {
+            if (rateLimiters == null) return;
+            rateLimiters.ForEach(i => i.OnApiRequest(this));
+        }
+
+        private string parseSpecialCharacters(string s)
         {
             s = s.Replace("#", "%23");
             return s;
         }
 
-        private string ParseUrl(string query)
+        private string parseUrl(string query)
         {
-            string region = Configuration.GetRegionString();
+            string region = getConfiguration().GetRegionString();
             string newUrl = Url.Replace("REGION", region.ToLower());
-            newUrl += query + "?locale=" + Configuration.GetLocaleString() + "&apikey=" + Configuration.ApiKey;
+            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&apikey=" + getConfiguration().ApiKey;
             return newUrl;
+        }
+
+        private ApiConfiguration getConfiguration()
+        {
+            if (Configuration == null)
+                return defaultConfig;
+            else
+                return Configuration;
         }
     }
 }
