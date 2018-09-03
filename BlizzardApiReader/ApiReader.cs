@@ -22,6 +22,8 @@ namespace BlizzardApiReader
 
         public ApiConfiguration Configuration;
 
+        private string parsedUrl;
+
         public ApiReader(ApiConfiguration apiConfiguration = null)
         {
             Configuration = apiConfiguration;
@@ -54,42 +56,55 @@ namespace BlizzardApiReader
             rateLimiters = null;
         }
 
+
         public async Task<T> GetAsync<T>(string query)
         {
-            validateConfiguration();
-            validateRateLimiters();
+            verifyConfigurationIsValid();
+            validateRateLimit();
+            string urlRequest = parseUrl(query);
+            HttpResponseMessage response = await makeHttpRequest();
+            notifyLimiters();
 
-            using (HttpClient client = new HttpClient())
+            if(response.IsSuccessStatusCode)
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                query = parseSpecialCharacters(query);
-
-                string parsedUrl = parseUrl(query);
-
-                HttpResponseMessage responseMessage = await client.GetAsync(parsedUrl);
-                notifyLimiters();
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    string json = await responseMessage.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<T>(json);
-                }
+                string json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(json);
             }
+
             return default(T);
         }
-
-        private void validateConfiguration()
+ 
+        private void verifyConfigurationIsValid()
         {
             if (getConfiguration() == null)
-                throw new NullReferenceException("ApiConfiguration is not set, either declare as global configuration or add it to the instance member.");
+                throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
-        private void validateRateLimiters()
+        private void validateRateLimit()
         {
             if (rateLimiters != null)
                 if (rateLimiters.Any(i => i.IsAtRateLimit()))
                     throw new Exception("Get api request blocked by rate Limiter");
+        }
+
+        private string parseUrl(string query)
+        {
+            query = parseSpecialCharacters(query);
+
+            string region = getConfiguration().GetRegionString();
+            string newUrl = Url.Replace("REGION", region.ToLower());
+            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&apikey=" + getConfiguration().ApiKey;
+            return newUrl;
+        }
+
+        private async Task<HttpResponseMessage> makeHttpRequest()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                return await client.GetAsync(parsedUrl);
+            }
         }
 
         private void notifyLimiters()
@@ -103,15 +118,6 @@ namespace BlizzardApiReader
             s = s.Replace("#", "%23");
             return s;
         }
-
-        private string parseUrl(string query)
-        {
-            string region = getConfiguration().GetRegionString();
-            string newUrl = Url.Replace("REGION", region.ToLower());
-            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&apikey=" + getConfiguration().ApiKey;
-            return newUrl;
-        }
-
         private ApiConfiguration getConfiguration()
         {
             if (Configuration == null)
