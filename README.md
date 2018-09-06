@@ -26,6 +26,11 @@ There is also unoffical hearthstone api, I am okay with implementing that as wel
 
 Additionally, we need help creating a wiki, any help is appreciated.
 
+# Goals
+Complete all the API requests available for all games.  
+Unit tests coverage for the project.  
+*Optional* OAuth implementation.  
+
 # Credits
 Aviv Biton - for creating and coding the api for Diablo 3.  
 Anyone contributing are welcome to edit this and add them to the credits section.
