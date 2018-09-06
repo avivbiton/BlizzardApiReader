@@ -1,5 +1,3 @@
-I didn't have much time to work on this project, but will continue (hopefully) this month
-
 # Blizzard ApiReader
 C# .net framework project, reads the Blizzard API and gets a response as json and converts them to objects, simple as that.
 This library can be used if you wish to create an application or software that require you to use any of Blizzard many APIs.
@@ -27,6 +25,11 @@ Currently, Blizard have an api for Diablo, Wow and Starcraft. The aim is to supp
 There is also unoffical hearthstone api, I am okay with implementing that as well. (http://hearthstoneapi.com/)
 
 Additionally, we need help creating a wiki, any help is appreciated.
+
+# Goals
+Complete all the API requests available for all games.  
+Unit tests coverage for the project.  
+*Optional* OAuth implementation.  
 
 # Credits
 Aviv Biton - for creating and coding the api for Diablo 3.  
