@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +45,7 @@ namespace BlizzardApiReader
         /// <returns></returns>
         public ApiConfiguration UseDefaultLocale()
         {
-            ResultLocale = getDefaultLocaleForRegion(ApiRegion);
+            ResultLocale = ApiRegion.GetDefaultLocale();
             return this;
         }
 
@@ -69,13 +69,26 @@ namespace BlizzardApiReader
         {
             return Enum.GetName(typeof(Region), ApiRegion);
         }
+    }
 
-        private Locale getDefaultLocaleForRegion(Region region)
+    public static class RegionExtensions
+    {
+        public static Locale GetDefaultLocale(this Region region)
         {
-            // TODO: Finish this;
-            return Locale.en_GB;
+            switch (region)
+            {
+                case Region.EU:
+                    return Locale.en_GB;
+                case Region.KR:
+                    return Locale.ko_KR;
+                case Region.TW:
+                    return Locale.zh_TW;
+                case Region.SEA:
+                case Region.US:
+                    return Locale.en_US;
+                default:
+                    throw new NotImplementedException($"The {nameof(Region)} [{region.ToString()}] does not have an associated {nameof(Locale)}");
+            }
         }
-
-
     }
 }
