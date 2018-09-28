@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,35 @@ namespace BlizzardApiReader
         public Locale ResultLocale;
         public string ApiKey;
 
+        /// <summary>
+        /// Initialize ApiConfiguration with default configurations and no api key
+        /// </summary>
+        public ApiConfiguration() : this(null)
+        {
+
+        }
+
+        /// <summary>
+        /// Initialize ApiConfiguration with default configurations and api key
+        /// </summary>
+        /// <param name="apiKey"></param>
+        public ApiConfiguration(string apiKey) : this(Region.US, Locale.en_US, apiKey)
+        {
+
+        }
+
+        /// <summary>
+        /// Initialize ApiConfiguration
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="locale"></param>
+        /// <param name="apiKey"></param>
+        public ApiConfiguration(Region region, Locale locale, string apiKey)
+        {
+            ApiRegion = region;
+            ResultLocale = locale;
+            ApiKey = apiKey;
+        }
 
         public static ApiConfiguration CreateEmpty()
         {
