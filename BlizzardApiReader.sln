@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader", "BlizzardApiReader\BlizzardApiReader.csproj", "{68B23C35-AD7E-4BC1-B26D-34BBC2C4205E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.Core", "BlizzardApiReader.Core\BlizzardApiReader.Core.csproj", "{386A02E4-D6B7-4371-8300-391D2BAA2169}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{68B23C35-AD7E-4BC1-B26D-34BBC2C4205E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68B23C35-AD7E-4BC1-B26D-34BBC2C4205E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68B23C35-AD7E-4BC1-B26D-34BBC2C4205E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{386A02E4-D6B7-4371-8300-391D2BAA2169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{386A02E4-D6B7-4371-8300-391D2BAA2169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{386A02E4-D6B7-4371-8300-391D2BAA2169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{386A02E4-D6B7-4371-8300-391D2BAA2169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
