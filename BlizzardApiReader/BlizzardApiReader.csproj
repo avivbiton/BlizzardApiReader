@@ -73,5 +73,11 @@
     <Folder Include="Starcraft\" />
     <Folder Include="WorldOfWarcaraft\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlizzardApiReader.Core\BlizzardApiReader.Core.csproj">
+      <Project>{386A02E4-D6B7-4371-8300-391D2BAA2169}</Project>
+      <Name>BlizzardApiReader.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

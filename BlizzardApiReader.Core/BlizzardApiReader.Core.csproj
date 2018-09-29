@@ -43,12 +43,8 @@
   <ItemGroup>
     <Compile Include="Enums\Locale.cs" />
     <Compile Include="Enums\Region.cs" />
-    <Compile Include="Extensions\EnumNameAttribute.cs" />
-    <Compile Include="Models\ApiConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
