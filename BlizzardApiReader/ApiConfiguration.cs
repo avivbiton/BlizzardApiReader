@@ -100,14 +100,19 @@ namespace BlizzardApiReader
             switch (region)
             {
                 case Region.EU:
-                    return Locale.en_GB;
+                case Region.Europe:
+                    return Locale.BritishEnglish;
                 case Region.KR:
-                    return Locale.ko_KR;
+                case Region.Korea:
+                    return Locale.Korean;
                 case Region.TW:
-                    return Locale.zh_TW;
+                case Region.Taiwan:
+                    return Locale.TraditionalChinese;
                 case Region.SEA:
+                case Region.SoutheastAsia:
                 case Region.US:
-                    return Locale.en_US;
+                case Region.UnitedStates:
+                    return Locale.AmericanEnglish;
                 default:
                     throw new NotImplementedException($"The {nameof(Region)} [{region.ToString()}] does not have an associated {nameof(Locale)}");
             }
