@@ -11,8 +11,10 @@ namespace BlizzardApiReader
         public string ApiKey;
 
         /// <summary>
-        /// Initialize ApiConfiguration with default configurations values and no api key.
-        /// Default configurations: Region.UnitedStates, Locale.AmericanEnglish
+        /// Initialize ApiConfiguration with default configurations and empty api key
+        /// Default configurations:
+        /// - Region.UnitedStates
+        /// - Locale.AmericanEnglish
         /// </summary>
         public ApiConfiguration() : this(null)
         {
@@ -21,10 +23,12 @@ namespace BlizzardApiReader
 
         /// <summary>
         /// Initialize ApiConfiguration with default configurations and api key
-        /// Default configurations: Region.UnitedStates, Locale.AmericanEnglish
+        /// Default configurations:
+        /// - Region.UnitedStates
+        /// - Locale.AmericanEnglish
         /// </summary>
         /// <param name="apiKey">ApiKey to set</param>
-        public ApiConfiguration(string apiKey) : this(Region.UnitedStates, Region.UnitedStates.GetDefaultLocale(), apiKey)
+        public ApiConfiguration(string apiKey) : this(Region.UnitedStates, apiKey)
         {
 
         }
@@ -52,6 +56,10 @@ namespace BlizzardApiReader
             ApiKey = apiKey;
         }
 
+        /// <summary>
+        /// Default configurations: Region.UnitedStates, Locale.AmericanEnglish
+        /// </summary>
+        [Obsolete("Enum values and are non-nullable and will always default to the first value within the enumeration even if no value was explicitly assigned. Creating an empty configuration is impossible, default configurations will be used. Please use constructor method instead")]
         public static ApiConfiguration CreateEmpty()
         {
             return new ApiConfiguration();
@@ -99,6 +107,7 @@ namespace BlizzardApiReader
         /// Will use the default locale for the configuration region, must be called only after setting the Region
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Please use overload of SetRegion to assign default locale of Region to configuration locale")]
         public ApiConfiguration UseDefaultLocale()
         {
             ResultLocale = ApiRegion.GetDefaultLocale();
