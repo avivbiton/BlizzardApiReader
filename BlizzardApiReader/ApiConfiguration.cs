@@ -1,4 +1,4 @@
-using BlizzardApiReader.Core.Enums;
+﻿using BlizzardApiReader.Core.Enums;
 using BlizzardApiReader.Core.Extensions;
 using System;
 
@@ -11,7 +11,8 @@ namespace BlizzardApiReader
         public string ApiKey;
 
         /// <summary>
-        /// Initialize ApiConfiguration with default configurations and no api key
+        /// Initialize ApiConfiguration with default configurations values and no api key.
+        /// Default configurations: Region.UnitedStates, Locale.AmericanEnglish
         /// </summary>
         public ApiConfiguration() : this(null)
         {
@@ -20,9 +21,20 @@ namespace BlizzardApiReader
 
         /// <summary>
         /// Initialize ApiConfiguration with default configurations and api key
+        /// Default configurations: Region.UnitedStates, Locale.AmericanEnglish
         /// </summary>
-        /// <param name="apiKey"></param>
-        public ApiConfiguration(string apiKey) : this(Region.US, Locale.en_US, apiKey)
+        /// <param name="apiKey">ApiKey to set</param>
+        public ApiConfiguration(string apiKey) : this(Region.UnitedStates, Region.UnitedStates.GetDefaultLocale(), apiKey)
+        {
+
+        }
+
+        /// <summary>
+        /// Initialize ApiConfiguration with locale based on default locale of region and api key
+        /// </summary>
+        /// <param name="region">Region to set</param>
+        /// <param name="apiKey">ApiKey to set</param>
+        public ApiConfiguration(Region region, string apiKey) : this(region, region.GetDefaultLocale(), apiKey)
         {
 
         }
@@ -30,9 +42,9 @@ namespace BlizzardApiReader
         /// <summary>
         /// Initialize ApiConfiguration
         /// </summary>
-        /// <param name="region"></param>
-        /// <param name="locale"></param>
-        /// <param name="apiKey"></param>
+        /// <param name="region">Region to set. Defaults to UnitedStates</param>
+        /// <param name="locale">Locale to set. Defaults to AmericanEnglish</param>
+        /// <param name="apiKey">ApiKey to set</param>
         public ApiConfiguration(Region region, Locale locale, string apiKey)
         {
             ApiRegion = region;
