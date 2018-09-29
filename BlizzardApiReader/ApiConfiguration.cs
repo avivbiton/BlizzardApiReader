@@ -1,9 +1,6 @@
-﻿using BlizzardApiReader.Core.Enums;
+using BlizzardApiReader.Core.Enums;
+using BlizzardApiReader.Core.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlizzardApiReader
 {
@@ -86,15 +83,13 @@ namespace BlizzardApiReader
             return this;
         }
 
-
-
         public string GetLocaleString()
         {
-            return Enum.GetName(typeof(Locale), ResultLocale);
+            return ResultLocale.GetEnumName();
         }
         public string GetRegionString()
         {
-            return Enum.GetName(typeof(Region), ApiRegion);
+            return ApiRegion.GetEnumName();
         }
     }
 

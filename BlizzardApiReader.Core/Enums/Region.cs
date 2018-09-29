@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlizzardApiReader.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,15 @@ namespace BlizzardApiReader.Core.Enums
         SEA,
         TW,
         US,
+        [EnumName("EU")]
+        Europe,
+        [EnumName("KR")]
+        Korea,
+        [EnumName("SEA")]
+        SoutheastAsia,
+        [EnumName("TW")]
+        Taiwan,
+        [EnumName("US")]
+        UnitedStates,
     }
 }
