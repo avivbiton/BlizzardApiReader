@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumNameAttributeTests.cs" />
     <Compile Include="Extensions\RegionExtensionsTests.cs" />
+    <Compile Include="Models\ApiConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

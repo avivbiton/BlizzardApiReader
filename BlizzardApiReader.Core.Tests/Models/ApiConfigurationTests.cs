@@ -1,9 +1,8 @@
-﻿using System;
-using BlizzardApiReader.Core.Enums;
+﻿using BlizzardApiReader.Core.Enums;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BlizzardApiReader.Tests
+namespace BlizzardApiReader.Core.Tests
 {
     [TestClass]
     public class ApiConfigurationTests

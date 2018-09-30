@@ -48,6 +48,7 @@
     <Compile Include="Enums\Region.cs" />
     <Compile Include="Extensions\EnumNameExtensions.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
+    <Compile Include="Models\ApiConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
