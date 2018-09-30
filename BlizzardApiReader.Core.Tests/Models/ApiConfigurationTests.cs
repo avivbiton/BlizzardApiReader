@@ -1,4 +1,5 @@
 ﻿using BlizzardApiReader.Core.Enums;
+using BlizzardApiReader.Core.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

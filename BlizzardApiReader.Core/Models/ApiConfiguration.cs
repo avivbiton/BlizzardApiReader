@@ -2,7 +2,7 @@
 using BlizzardApiReader.Core.Extensions;
 using System;
 
-namespace BlizzardApiReader
+namespace BlizzardApiReader.Core.Models
 {
     public class ApiConfiguration
     {
