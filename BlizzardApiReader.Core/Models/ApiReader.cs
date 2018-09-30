@@ -4,11 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using BlizzardApiReader.Core.Models;
 using Newtonsoft.Json;
-using BlizzardApiReader.Diablo.Models;
-using System.IO;
 
-namespace BlizzardApiReader
+namespace BlizzardApiReader.Core.Models
 {
     public class ApiReader
     {
