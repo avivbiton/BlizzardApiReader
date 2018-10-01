@@ -52,9 +52,9 @@
     <Compile Include="Extensions\EnumNameExtensions.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Models\ApiConfiguration.cs" />
-    <Compile Include="Models\ApiReader.cs" />
-    <Compile Include="Models\IRateLimiter.cs" />
-    <Compile Include="Models\TimeRateLimiter.cs" />
+    <Compile Include="ApiReader.cs" />
+    <Compile Include="IRateLimiter.cs" />
+    <Compile Include="TimeRateLimiter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

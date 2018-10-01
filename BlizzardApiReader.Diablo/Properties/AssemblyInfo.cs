@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DiabloReader")]
+[assembly: AssemblyTitle("BlizzardApiReader.Diablo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DiabloReader")]
+[assembly: AssemblyProduct("BlizzardApiReader.Diablo")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("68b23c35-ad7e-4bc1-b26d-34bbc2c4205e")]
+[assembly: Guid("6defecbc-a08c-435b-8a15-8c09f0734292")]
 
 // Version information for an assembly consists of the following four values:
 //

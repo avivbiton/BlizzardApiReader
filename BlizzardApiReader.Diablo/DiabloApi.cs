@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlizzardApiReader.Core;
 using BlizzardApiReader.Core.Models;
 using BlizzardApiReader.Diablo.Models;
 

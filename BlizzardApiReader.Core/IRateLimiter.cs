@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlizzardApiReader.Core.Models
+namespace BlizzardApiReader.Core
 {
     public interface IRateLimiter
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using BlizzardApiReader.Core.Models;
 using Newtonsoft.Json;
 
-namespace BlizzardApiReader.Core.Models
+namespace BlizzardApiReader.Core
 {
     public class ApiReader
     {
@@ -27,7 +27,6 @@ namespace BlizzardApiReader.Core.Models
         {
             Configuration = apiConfiguration;
         }
-
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
         {
@@ -64,7 +63,7 @@ namespace BlizzardApiReader.Core.Models
             HttpResponseMessage response = await makeHttpRequest();
             notifyLimiters();
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(json);
@@ -72,7 +71,7 @@ namespace BlizzardApiReader.Core.Models
 
             return default(T);
         }
- 
+
         private void verifyConfigurationIsValid()
         {
             if (getConfiguration() == null)
@@ -108,7 +107,9 @@ namespace BlizzardApiReader.Core.Models
 
         private void notifyLimiters()
         {
-            if (rateLimiters == null) return;
+            if (rateLimiters == null)
+                return;
+
             rateLimiters.ForEach(i => i.OnApiRequest(this));
         }
 

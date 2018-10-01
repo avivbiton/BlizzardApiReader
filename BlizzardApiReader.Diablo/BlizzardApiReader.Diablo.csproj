@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68B23C35-AD7E-4BC1-B26D-34BBC2C4205E}</ProjectGuid>
+    <ProjectGuid>{6DEFECBC-A08C-435B-8A15-8C09F0734292}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>BlizzardApiReader</RootNamespace>
-    <AssemblyName>BlizzardApiReader</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BlizzardApiReader.Diablo</RootNamespace>
+    <AssemblyName>BlizzardApiReader.Diablo</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,16 +23,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -48,32 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Diablo\DiabloApi.cs" />
-    <Compile Include="Diablo\Models\Artisan.cs" />
-    <Compile Include="Diablo\Models\BattleAccount.cs" />
-    <Compile Include="Diablo\Models\DetailedArtisan.cs" />
-    <Compile Include="Diablo\Models\Hero.cs" />
-    <Compile Include="Diablo\Models\Quest.cs" />
-    <Compile Include="Diablo\Models\Season.cs" />
-    <Compile Include="Diablo\Models\StoryAct.cs" />
+    <Compile Include="DiabloApi.cs" />
+    <Compile Include="Models\Artisan.cs" />
+    <Compile Include="Models\BattleAccount.cs" />
+    <Compile Include="Models\DetailedArtisan.cs" />
+    <Compile Include="Models\Hero.cs" />
+    <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\Season.cs" />
+    <Compile Include="Models\StoryAct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="apikey.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Starcraft\" />
-    <Folder Include="WorldOfWarcaraft\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BlizzardApiReader.Core\BlizzardApiReader.Core.csproj">
-      <Project>{386A02E4-D6B7-4371-8300-391D2BAA2169}</Project>
+      <Project>{386a02e4-d6b7-4371-8300-391d2baa2169}</Project>
       <Name>BlizzardApiReader.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
