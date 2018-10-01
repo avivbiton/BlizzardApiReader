@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlizzardApiReader.Core.Models
+namespace BlizzardApiReader.Core
 {
     public class TimeRateLimiter : IRateLimiter
     {
@@ -22,7 +22,6 @@ namespace BlizzardApiReader.Core.Models
 
             currentRateCounter = 0;
             CalculateAndSetNextReset();
-
         }
 
         public bool IsAtRateLimit()
