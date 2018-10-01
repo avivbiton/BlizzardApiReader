@@ -2,6 +2,7 @@
 
 namespace BlizzardApiReader.Core.Attributes
 {
+    [AttributeUsage(AttributeTargets.Field)]
     public class EnumNameAttribute : Attribute
     {
         public EnumNameAttribute(string name)
@@ -9,6 +10,6 @@ namespace BlizzardApiReader.Core.Attributes
             Name = name;
         }
 
-        public string Name { get; set; }
+        public string Name { get; }
     }
 }
