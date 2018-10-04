@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using BlizzardApiReader.Diablo.Models;
 using System.IO;
+using BlizzardApiReader.WebClient;
 
 namespace BlizzardApiReader
 {
     public class ApiReader
     {
         private static readonly string Url = "https://REGION.api.battle.net";
-
+        private readonly IWebClient _webClient;
         /// <summary>
         /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
         /// </summary>
         private static ApiConfiguration defaultConfig { get; set; }
         private static List<IRateLimiter> rateLimiters { get; set; }
 
+
         public ApiConfiguration Configuration;
 
-        public ApiReader(ApiConfiguration apiConfiguration = null)
+        public ApiReader(IWebClient webClient, ApiConfiguration apiConfiguration = null)
         {
             Configuration = apiConfiguration;
+            _webClient = webClient;
         }
 
 
@@ -60,18 +63,12 @@ namespace BlizzardApiReader
             verifyConfigurationIsValid();
             validateRateLimit();
             string urlRequest = parseUrl(query);
-            HttpResponseMessage response = await makeHttpRequest(urlRequest);
+
             notifyLimiters();
-
-            if(response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(json);
-            }
-
-            return default(T);
+            string json = await _webClient.MakeHttpRequest(urlRequest);
+            return JsonConvert.DeserializeObject<T>(json);
         }
- 
+
         private void verifyConfigurationIsValid()
         {
             if (getConfiguration() == null)
@@ -95,15 +92,6 @@ namespace BlizzardApiReader
             return newUrl;
         }
 
-        private async Task<HttpResponseMessage> makeHttpRequest(string urlRequest)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                return await client.GetAsync(urlRequest);
-            }
-        }
 
         private void notifyLimiters()
         {
