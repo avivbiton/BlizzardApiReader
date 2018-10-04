@@ -18,7 +18,9 @@ namespace BlizzardApiReader
         /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
         /// </summary>
         private static ApiConfiguration defaultConfig { get; set; }
-        private static List<IRateLimiter> rateLimiters { get; set; }
+    
+        // NOTE: I still don't like the limiters to sit  on the ApiReader object, maybe move it somewhere else in the future? (Aviv Biton)
+        public static LimitersList Limiters { get; } = new LimitersList();
 
         public ApiConfiguration Configuration;
 
@@ -27,43 +29,22 @@ namespace BlizzardApiReader
             Configuration = apiConfiguration;
         }
 
-
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
         {
             defaultConfig = configuration;
         }
 
-        public static void AddRateLimiter(IRateLimiter limiter)
-        {
-            if (rateLimiters == null)
-                rateLimiters = new List<IRateLimiter>();
-
-            rateLimiters.Add(limiter);
-        }
-
-        public static void RemoveRateLimiter(IRateLimiter limiter)
-        {
-            if (rateLimiters.Contains(limiter) == false)
-                throw new KeyNotFoundException();
-
-            rateLimiters.Remove(limiter);
-        }
-
-        public static void RemoveAllLimiters()
-        {
-            rateLimiters = null;
-        }
-
-
         public async Task<T> GetAsync<T>(string query)
         {
             verifyConfigurationIsValid();
-            validateRateLimit();
+            if (Limiters.AnyReachedLimit())
+                throw new RateLimitReachedException("http request was blocked by RateLimiter");
+
             string urlRequest = parseUrl(query);
             HttpResponseMessage response = await makeHttpRequest(urlRequest);
-            notifyLimiters();
+            Limiters.NotifyAll(this, response);
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(json);
@@ -71,19 +52,14 @@ namespace BlizzardApiReader
 
             return default(T);
         }
- 
+
         private void verifyConfigurationIsValid()
         {
             if (getConfiguration() == null)
                 throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
-        private void validateRateLimit()
-        {
-            if (rateLimiters != null)
-                if (rateLimiters.Any(i => i.IsAtRateLimit()))
-                    throw new Exception("Get api request blocked by rate Limiter");
-        }
+
 
         private string parseUrl(string query)
         {
@@ -103,12 +79,6 @@ namespace BlizzardApiReader
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 return await client.GetAsync(urlRequest);
             }
-        }
-
-        private void notifyLimiters()
-        {
-            if (rateLimiters == null) return;
-            rateLimiters.ForEach(i => i.OnApiRequest(this));
         }
 
         private string parseSpecialCharacters(string s)

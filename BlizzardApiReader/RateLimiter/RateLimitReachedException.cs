@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace BlizzardApiReader
 {
-    public interface IRateLimiter
+    public class RateLimitReachedException : Exception
     {
-        bool IsAtRateLimit();
 
-        void OnHttpRequest(ApiReader reader, HttpResponseMessage response);
 
+        public RateLimitReachedException(string message) : base(message)
+        {
+        }
     }
 }
