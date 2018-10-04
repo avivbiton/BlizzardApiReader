@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ApiConfiguration.cs" />
     <Compile Include="Diablo\DiabloApi.cs" />
+    <Compile Include="Diablo\IDiabloApi.cs" />
     <Compile Include="Diablo\Models\Artisan.cs" />
     <Compile Include="Diablo\Models\BattleAccount.cs" />
     <Compile Include="Diablo\Models\CharacterClass.cs" />
