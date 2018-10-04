@@ -24,12 +24,16 @@ You are more than welcome adding more api requests to this projects.
 Currently, Blizard have an api for Diablo, Wow and Starcraft. The aim is to support all 3 games.
 There is also unoffical hearthstone api, I am okay with implementing that as well. (http://hearthstoneapi.com/)
 
-Additionally, we need help creating a wiki, any help is appreciated.
+# Pull requests
+From now, all changes will be pushed into the development branch before merging into the master branch.
 
 # Goals
 Complete all the API requests available for all games.  
 Unit tests coverage for the project.  
 *Optional* OAuth implementation.  
+Ongoing code refactor and improvements.
+*switch to .net core*
+Resolve all open issues
 
 # Credits
 Aviv Biton - for creating and coding the api for Diablo 3.  
