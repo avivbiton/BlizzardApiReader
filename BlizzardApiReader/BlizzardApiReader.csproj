@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ApiConfiguration.cs" />
     <Compile Include="Diablo\DiabloApi.cs" />
+    <Compile Include="Diablo\IDiabloApi.cs" />
     <Compile Include="Diablo\Models\Artisan.cs" />
     <Compile Include="Diablo\Models\BattleAccount.cs" />
     <Compile Include="Diablo\Models\CharacterClass.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiReader.cs" />
     <Compile Include="RateLimiter\TimeRateLimiter.cs" />
+    <Compile Include="WebClient\IWebClient.cs" />
+    <Compile Include="WebClient\WebClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,23 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlizzardApiReader.Diablo.Models;
+using BlizzardApiReader.WebClient;
 
 namespace BlizzardApiReader.Diablo
 {
-    public class DiabloApi
+    public class DiabloApi : IDiabloApi
     {
 
         private ApiReader reader;
-
-        public DiabloApi()
+        public DiabloApi(IWebClient webClient = null)
         {
-            reader = new ApiReader();
+            if (webClient == null)
+            {
+                webClient = new WebClient.WebClient();
+            }
+            reader = new ApiReader(webClient);
             
         }
 
-        public DiabloApi(ApiConfiguration configuration)
+        public DiabloApi(ApiConfiguration configuration, IWebClient webClient = null)
         {
-            reader = new ApiReader(configuration);
+            if (webClient == null)
+            {
+                webClient = new WebClient.WebClient();
+            }
+            reader = new ApiReader(webClient, configuration);
         }
 
         public void OverrideConfiguration(ApiConfiguration newConfiguration)

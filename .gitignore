@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -9,3 +9,6 @@
 /BlizzardApiReader/apikey.txt
 /BlizzardApiReader/bin/Release
 /BlizzardApiReader/obj/Release
+packages/
+BlizzarApiReader.Test/bin/
+BlizzarApiReader.Test/obj/
