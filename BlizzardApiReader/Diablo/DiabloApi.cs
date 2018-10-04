@@ -8,7 +8,7 @@ using BlizzardApiReader.WebClient;
 
 namespace BlizzardApiReader.Diablo
 {
-    public class DiabloApi
+    public class DiabloApi : IDiabloApi
     {
 
         private ApiReader reader;
