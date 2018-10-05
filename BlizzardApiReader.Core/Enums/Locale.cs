@@ -9,10 +9,6 @@ namespace BlizzardApiReader.Core.Enums
 {
     public enum Locale
     {
-        en_GB,
-        ko_KR,
-        zh_TW,
-        en_US,
         [EnumName("en_GB")]
         BritishEnglish,
         [EnumName("ko_KR")]

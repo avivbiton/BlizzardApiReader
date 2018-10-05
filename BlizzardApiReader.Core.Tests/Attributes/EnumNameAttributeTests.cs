@@ -12,7 +12,7 @@ namespace BlizzardApiReader.Core.Tests.Extensions
 
         #region GetEnumName
         [TestMethod]
-        public void GetEnumName_NoAttribute_ValueString()
+        public void GetEnumName_WithoutAttribute_ValueString()
         {
             var valueString = EnumNameAttributeTestModel.WithoutAttribute.ToString();
 

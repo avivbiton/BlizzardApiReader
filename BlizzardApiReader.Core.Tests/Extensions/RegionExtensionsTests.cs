@@ -11,21 +11,9 @@ namespace BlizzardApiReader.Core.Tests.Extensions
     {
         #region GetDefaultLocale
         [TestMethod]
-        public void GetDefaultLocale_EU_BritishEnglish()
-        {
-            Region.EU.GetDefaultLocale().Should().BeEquivalentTo(Locale.BritishEnglish);
-        }
-
-        [TestMethod]
         public void GetDefaultLocale_Europe_BritishEnglish()
         {
             Region.Europe.GetDefaultLocale().Should().BeEquivalentTo(Locale.BritishEnglish);
-        }
-
-        [TestMethod]
-        public void GetDefaultLocale_KR_Korean()
-        {
-            Region.KR.GetDefaultLocale().Should().BeEquivalentTo(Locale.Korean);
         }
 
         [TestMethod]
@@ -35,33 +23,15 @@ namespace BlizzardApiReader.Core.Tests.Extensions
         }
 
         [TestMethod]
-        public void GetDefaultLocale_TW_TraditionalChinese()
-        {
-            Region.TW.GetDefaultLocale().Should().BeEquivalentTo(Locale.TraditionalChinese);
-        }
-
-        [TestMethod]
         public void GetDefaultLocale_Taiwan_TraditionalChinese()
         {
             Region.Taiwan.GetDefaultLocale().Should().BeEquivalentTo(Locale.TraditionalChinese);
         }
 
         [TestMethod]
-        public void GetDefaultLocale_SEA_AmericanEnglish()
-        {
-            Region.SEA.GetDefaultLocale().Should().BeEquivalentTo(Locale.AmericanEnglish);
-        }
-
-        [TestMethod]
         public void GetDefaultLocale_SoutheastAsia_AmericanEnglish()
         {
             Region.SoutheastAsia.GetDefaultLocale().Should().BeEquivalentTo(Locale.AmericanEnglish);
-        }
-
-        [TestMethod]
-        public void GetDefaultLocale_US_AmericanEnglish()
-        {
-            Region.US.GetDefaultLocale().Should().BeEquivalentTo(Locale.AmericanEnglish);
         }
 
         [TestMethod]

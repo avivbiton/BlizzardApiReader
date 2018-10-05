@@ -9,11 +9,6 @@ namespace BlizzardApiReader.Core.Enums
 {
     public enum Region
     {
-        EU,
-        KR,
-        SEA,
-        TW,
-        US,
         [EnumName("EU")]
         Europe,
         [EnumName("KR")]
