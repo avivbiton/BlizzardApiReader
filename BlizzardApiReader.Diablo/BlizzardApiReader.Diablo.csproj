@@ -47,8 +47,14 @@
     <Compile Include="DiabloApi.cs" />
     <Compile Include="Models\Artisan.cs" />
     <Compile Include="Models\BattleAccount.cs" />
+    <Compile Include="Models\CharacterClass.cs" />
+    <Compile Include="Models\CharacterClassSkill.cs" />
     <Compile Include="Models\DetailedArtisan.cs" />
+    <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Hero.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemType.cs" />
+    <Compile Include="Models\ItemTypeDetailed.cs" />
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\StoryAct.cs" />
