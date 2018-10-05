@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\EnumNameAttribute.cs" />
+    <Compile Include="Attributes\EnumValueAttribute.cs" />
     <Compile Include="Enums\Locale.cs" />
     <Compile Include="Enums\Region.cs" />
-    <Compile Include="Extensions\EnumNameExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Models\ApiConfiguration.cs" />
     <Compile Include="ApiReader.cs" />

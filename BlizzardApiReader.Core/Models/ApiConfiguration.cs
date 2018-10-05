@@ -126,11 +126,11 @@ namespace BlizzardApiReader.Core.Models
 
         public string GetLocaleString()
         {
-            return ResultLocale.GetEnumName();
+            return ResultLocale.GetEnumValue();
         }
         public string GetRegionString()
         {
-            return ApiRegion.GetEnumName();
+            return ApiRegion.GetEnumValue();
         }
     }
 }

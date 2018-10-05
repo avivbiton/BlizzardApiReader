@@ -9,13 +9,13 @@ namespace BlizzardApiReader.Core.Enums
 {
     public enum Locale
     {
-        [EnumName("en_GB")]
+        [EnumValue("en_GB")]
         BritishEnglish,
-        [EnumName("ko_KR")]
+        [EnumValue("ko_KR")]
         Korean,
-        [EnumName("zh_TW")]
+        [EnumValue("zh_TW")]
         TraditionalChinese,
-        [EnumName("en_US")]
+        [EnumValue("en_US")]
         AmericanEnglish,
     }
 }

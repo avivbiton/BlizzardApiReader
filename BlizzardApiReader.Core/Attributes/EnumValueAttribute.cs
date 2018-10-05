@@ -3,9 +3,9 @@
 namespace BlizzardApiReader.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public class EnumNameAttribute : Attribute
+    public class EnumValueAttribute : Attribute
     {
-        public EnumNameAttribute(string name)
+        public EnumValueAttribute(string name)
         {
             Name = name;
         }

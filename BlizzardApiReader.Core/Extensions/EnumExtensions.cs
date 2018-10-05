@@ -4,13 +4,13 @@ using System.Reflection;
 
 namespace BlizzardApiReader.Core.Extensions
 {
-    public static class EnumNameAttributeExtensions
+    public static class EnumExtensions
     {
-        public static string GetEnumName<TEnum>(this TEnum value) where TEnum : Enum
+        public static string GetEnumValue<TEnum>(this TEnum value) where TEnum : Enum
         {
             Type type = typeof(TEnum);
             var field = type.GetField(value.ToString());
-            var attr = field.GetCustomAttribute(typeof(EnumNameAttribute)) as EnumNameAttribute;
+            var attr = field.GetCustomAttribute(typeof(EnumValueAttribute)) as EnumValueAttribute;
 
             return attr?.Name ?? value.ToString();
         }
