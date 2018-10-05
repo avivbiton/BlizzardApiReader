@@ -58,7 +58,6 @@
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\StoryAct.cs" />
-    <Compile Include="ApiConfiguration.cs" />
     <Compile Include="Diablo\DiabloApi.cs" />
     <Compile Include="Diablo\Models\Artisan.cs" />
     <Compile Include="Diablo\Models\BattleAccount.cs" />
@@ -73,7 +72,6 @@
     <Compile Include="Diablo\Models\Quest.cs" />
     <Compile Include="Diablo\Models\Season.cs" />
     <Compile Include="Diablo\Models\StoryAct.cs" />
-    <Compile Include="RateLimiter\IRateLimiter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
