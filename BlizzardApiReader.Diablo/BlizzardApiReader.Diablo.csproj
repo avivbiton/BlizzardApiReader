@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD:BlizzardApiReader.Diablo/BlizzardApiReader.Diablo.csproj
     <Compile Include="DiabloApi.cs" />
     <Compile Include="Models\Artisan.cs" />
     <Compile Include="Models\BattleAccount.cs" />
@@ -52,6 +53,24 @@
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\StoryAct.cs" />
+=======
+    <Compile Include="ApiConfiguration.cs" />
+    <Compile Include="Diablo\DiabloApi.cs" />
+    <Compile Include="Diablo\Models\Artisan.cs" />
+    <Compile Include="Diablo\Models\BattleAccount.cs" />
+    <Compile Include="Diablo\Models\CharacterClass.cs" />
+    <Compile Include="Diablo\Models\CharacterClassSkill.cs" />
+    <Compile Include="Diablo\Models\DetailedArtisan.cs" />
+    <Compile Include="Diablo\Models\Follower.cs" />
+    <Compile Include="Diablo\Models\Hero.cs" />
+    <Compile Include="Diablo\Models\Item.cs" />
+    <Compile Include="Diablo\Models\ItemType.cs" />
+    <Compile Include="Diablo\Models\ItemTypeDetailed.cs" />
+    <Compile Include="Diablo\Models\Quest.cs" />
+    <Compile Include="Diablo\Models\Season.cs" />
+    <Compile Include="Diablo\Models\StoryAct.cs" />
+    <Compile Include="RateLimiter\IRateLimiter.cs" />
+>>>>>>> master:BlizzardApiReader/BlizzardApiReader.csproj
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

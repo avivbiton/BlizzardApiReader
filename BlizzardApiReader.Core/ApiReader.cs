@@ -21,8 +21,6 @@ namespace BlizzardApiReader.Core
 
         public ApiConfiguration Configuration;
 
-        private string parsedUrl;
-
         public ApiReader(ApiConfiguration apiConfiguration = null)
         {
             Configuration = apiConfiguration;
@@ -60,7 +58,7 @@ namespace BlizzardApiReader.Core
             verifyConfigurationIsValid();
             validateRateLimit();
             string urlRequest = parseUrl(query);
-            HttpResponseMessage response = await makeHttpRequest();
+            HttpResponseMessage response = await makeHttpRequest(urlRequest);
             notifyLimiters();
 
             if (response.IsSuccessStatusCode)
@@ -95,13 +93,13 @@ namespace BlizzardApiReader.Core
             return newUrl;
         }
 
-        private async Task<HttpResponseMessage> makeHttpRequest()
+        private async Task<HttpResponseMessage> makeHttpRequest(string urlRequest)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                return await client.GetAsync(parsedUrl);
+                return await client.GetAsync(urlRequest);
             }
         }
 
