@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.Diablo", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.Diablo.Tests", "BlizzardApiReader.Diablo.Tests\BlizzardApiReader.Diablo.Tests.csproj", "{DD625619-B667-4900-9CE1-BF827DB55B87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.WorldOfWarcraft", "BlizzardApiReader.WorldOfWarcraft\BlizzardApiReader.WorldOfWarcraft.csproj", "{8FC8C5E1-ABD9-4EDD-B28A-36E634C4522B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.WorldOfWarcraft.Tests", "BlizzardApiReader.WorldOfWarcraft.Tests\BlizzardApiReader.WorldOfWarcraft.Tests.csproj", "{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,14 @@ Global
 		{DD625619-B667-4900-9CE1-BF827DB55B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD625619-B667-4900-9CE1-BF827DB55B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD625619-B667-4900-9CE1-BF827DB55B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC8C5E1-ABD9-4EDD-B28A-36E634C4522B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC8C5E1-ABD9-4EDD-B28A-36E634C4522B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC8C5E1-ABD9-4EDD-B28A-36E634C4522B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC8C5E1-ABD9-4EDD-B28A-36E634C4522B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{93F0E38C-D204-4E5F-8B47-B76517767B90} = {E31A6ECC-001B-4708-9961-CD7B4D5719EF}
 		{DD625619-B667-4900-9CE1-BF827DB55B87} = {E31A6ECC-001B-4708-9961-CD7B4D5719EF}
+		{8BE9EF3E-0BA9-4A11-9862-2B033B51E6A8} = {E31A6ECC-001B-4708-9961-CD7B4D5719EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBDB6DC4-DBA0-4229-9330-617DF489FC30}
