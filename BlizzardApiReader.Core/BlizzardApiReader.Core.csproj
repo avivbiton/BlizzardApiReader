@@ -53,12 +53,16 @@
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Models\ApiConfiguration.cs" />
     <Compile Include="ApiReader.cs" />
-    <Compile Include="IRateLimiter.cs" />
-    <Compile Include="TimeRateLimiter.cs" />
+    <Compile Include="RateLimiter\IRateLimiter.cs" />
+    <Compile Include="RateLimiter\LimitersList.cs" />
+    <Compile Include="RateLimiter\TimeRateLimiter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RateLimiter\RateLimitReachedException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

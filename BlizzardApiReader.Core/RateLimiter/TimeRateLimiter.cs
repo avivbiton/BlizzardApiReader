@@ -1,9 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BlizzardApiReader.Core
 {
     public class TimeRateLimiter : IRateLimiter
     {
+        /*
+         * 
+         * This class is completely un-tested, need testing asap.
+         * 
+         * */
+
+
 
         /// <summary>
         /// Time limiters that reset every DateTime, and allow only RatesPerDateTime requests
@@ -21,21 +33,22 @@ namespace BlizzardApiReader.Core
             RatesPerTimespan = maxRatePerReset;
 
             currentRateCounter = 0;
-            CalculateAndSetNextReset();
+            calculateAndSetNextReset();
+
         }
 
         public bool IsAtRateLimit()
         {
             if (isReadyToReset())
-                ResetLimiter();
+                resetLimiter();
 
             return currentRateCounter >= RatesPerTimespan;
         }
 
-        public void OnApiRequest(ApiReader reader)
+        public void OnHttpRequest(ApiReader reader, HttpResponseMessage responseMessage)
         {
             if (isReadyToReset())
-                ResetLimiter();
+                resetLimiter();
 
             currentRateCounter++;
         }
@@ -43,7 +56,7 @@ namespace BlizzardApiReader.Core
         /// <summary>
         ///  Calculate the next time the limiter reset and set it
         /// </summary>
-        private void CalculateAndSetNextReset()
+        private void calculateAndSetNextReset()
         {
             timeUntilTheNextReset = DateTime.Now.Add(TimeBetweenLimitReset);
         }
@@ -53,10 +66,10 @@ namespace BlizzardApiReader.Core
             return DateTime.Now >= timeUntilTheNextReset;
         }
 
-        private void ResetLimiter()
+        private void resetLimiter()
         {
             currentRateCounter = 0;
-            CalculateAndSetNextReset();
+            calculateAndSetNextReset();
         }
     }
 }

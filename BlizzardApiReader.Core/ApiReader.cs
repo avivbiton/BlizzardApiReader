@@ -17,7 +17,7 @@ namespace BlizzardApiReader.Core
         /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
         /// </summary>
         private static ApiConfiguration defaultConfig { get; set; }
-        private static List<IRateLimiter> rateLimiters { get; set; }
+        private static LimitersList limiters { get; } = new LimitersList();
 
         public ApiConfiguration Configuration;
 
@@ -31,35 +31,15 @@ namespace BlizzardApiReader.Core
             defaultConfig = configuration;
         }
 
-        public static void AddRateLimiter(IRateLimiter limiter)
-        {
-            if (rateLimiters == null)
-                rateLimiters = new List<IRateLimiter>();
-
-            rateLimiters.Add(limiter);
-        }
-
-        public static void RemoveRateLimiter(IRateLimiter limiter)
-        {
-            if (rateLimiters.Contains(limiter) == false)
-                throw new KeyNotFoundException();
-
-            rateLimiters.Remove(limiter);
-        }
-
-        public static void RemoveAllLimiters()
-        {
-            rateLimiters = null;
-        }
-
-
         public async Task<T> GetAsync<T>(string query)
         {
             verifyConfigurationIsValid();
-            validateRateLimit();
+            if (limiters.AnyReachedLimit())
+                throw new RateLimitReachedException("http request was blocked by RateLimiter");
+
             string urlRequest = parseUrl(query);
             HttpResponseMessage response = await makeHttpRequest(urlRequest);
-            notifyLimiters();
+            limiters.NotifyAll(this, response);
 
             if (response.IsSuccessStatusCode)
             {
@@ -76,12 +56,6 @@ namespace BlizzardApiReader.Core
                 throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
-        private void validateRateLimit()
-        {
-            if (rateLimiters != null)
-                if (rateLimiters.Any(i => i.IsAtRateLimit()))
-                    throw new Exception("Get api request blocked by rate Limiter");
-        }
 
         private string parseUrl(string query)
         {
@@ -103,13 +77,6 @@ namespace BlizzardApiReader.Core
             }
         }
 
-        private void notifyLimiters()
-        {
-            if (rateLimiters == null)
-                return;
-
-            rateLimiters.ForEach(i => i.OnApiRequest(this));
-        }
 
         private string parseSpecialCharacters(string s)
         {

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BlizzardApiReader.Core
 {
-    public interface IRateLimiter
+    public class RateLimitReachedException : Exception
     {
-        bool IsAtRateLimit();
-
-        void OnApiRequest(ApiReader reader);
-
+        public RateLimitReachedException(string message) : base(message)
+        {
+        }
     }
 }
