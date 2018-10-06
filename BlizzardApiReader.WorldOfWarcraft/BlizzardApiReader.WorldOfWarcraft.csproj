@@ -41,10 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Realm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldOfWarcraftApi.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\BlizzardApiReader.Core\BlizzardApiReader.Core.csproj">
+      <Project>{386A02E4-D6B7-4371-8300-391D2BAA2169}</Project>
+      <Name>BlizzardApiReader.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
