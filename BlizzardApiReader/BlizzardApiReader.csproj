@@ -69,6 +69,8 @@
     <Compile Include="RateLimiter\LimitersList.cs" />
     <Compile Include="RateLimiter\RateLimitReachedException.cs" />
     <Compile Include="RateLimiter\TimeRateLimiter.cs" />
+    <Compile Include="WorldOfWarcaraft\Models\Realm.cs" />
+    <Compile Include="WorldOfWarcaraft\WorldOfWarcraftApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Starcraft\" />
-    <Folder Include="WorldOfWarcaraft\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
