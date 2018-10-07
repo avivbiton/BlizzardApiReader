@@ -6,7 +6,7 @@ namespace BlizzardApiReader.Core.Extensions
 {
     public static class EnumExtensions
     {
-        public static string GetEnumValue<TEnum>(this TEnum value) where TEnum : Enum
+        public static string GetEnumValue<TEnum>(this TEnum value) 
         {
             Type type = typeof(TEnum);
             var field = type.GetField(value.ToString());
