@@ -41,11 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Achievement.cs" />
-    <Compile Include="Models\Criteria.cs" />
     <Compile Include="Models\Realm.cs" />
-    <Compile Include="Models\RewardItem.cs" />
-    <Compile Include="Models\TooltipParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldOfWarcraftApi.cs" />
   </ItemGroup>

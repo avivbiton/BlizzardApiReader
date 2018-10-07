@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlizzardApiReader.WorldOfWarcraft.Models
+namespace BlizzardApiReader.WorldOfWarcaraft.Models
 {
     public class Realm
     {

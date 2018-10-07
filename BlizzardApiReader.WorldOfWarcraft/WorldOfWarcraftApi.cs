@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using BlizzardApiReader.Core;
 using BlizzardApiReader.Core.Models;
-using BlizzardApiReader.WorldOfWarcraft.Models;
+using BlizzardApiReader.WorldOfWarcaraft.Models;
 
-namespace BlizzardApiReader.WorldOfWarcraft
+namespace BlizzardApiReader.WorldOfWarcaraft
 {
     public class WorldOfWarcraftApi
     {
@@ -24,14 +24,6 @@ namespace BlizzardApiReader.WorldOfWarcraft
         {
             reader.Configuration = newConfiguration;
         }
-
-        #region WoW Achievements
-        public async Task<Achievement> GetAchievementAsync(int achievementId)
-        {
-            string query = $"/wow/achievement/{achievementId}";
-            return await reader.GetAsync<Achievement>(query);
-        }
-        #endregion
 
         #region WoW Realm Status
         public async Task<List<Realm>> GetRealmIndexAsync()
