@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.Diablo.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.WorldOfWarcraft", "BlizzardApiReader.WorldOfWarcraft\BlizzardApiReader.WorldOfWarcraft.csproj", "{643D5BE8-DFCC-49F0-B551-D8E541F860E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.WorldOfWarcraft.Tests", "BlizzardApiReader.WorldOfWarcraft.Tests\BlizzardApiReader.WorldOfWarcraft.Tests.csproj", "{818A6DC3-B38D-4299-BC9E-AD324E8D1059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.WorldOfWarcraft.Tests", "BlizzardApiReader.WorldOfWarcraft.Tests\BlizzardApiReader.WorldOfWarcraft.Tests.csproj", "{818A6DC3-B38D-4299-BC9E-AD324E8D1059}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{333FBEFD-AE34-4B35-87A0-4F2284F379F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4A08E212-6E42-4438-99CA-A7A6EC0CD5F9} = {333FBEFD-AE34-4B35-87A0-4F2284F379F3}
+		{CA6B1073-639F-4028-BF5D-56DA4CE12E8D} = {333FBEFD-AE34-4B35-87A0-4F2284F379F3}
+		{818A6DC3-B38D-4299-BC9E-AD324E8D1059} = {333FBEFD-AE34-4B35-87A0-4F2284F379F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5722199F-F835-45A3-88B5-4E8A7661832D}
