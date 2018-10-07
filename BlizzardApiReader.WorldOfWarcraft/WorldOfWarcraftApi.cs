@@ -33,6 +33,14 @@ namespace BlizzardApiReader.WorldOfWarcraft
         }
         #endregion
 
+        #region WoW Boss
+        public async Task<Boss> GetBossAsync(int bossId)
+        {
+            string query = $"/wow/boss/{bossId}";
+            return await reader.GetAsync<Boss>(query);
+        }
+        #endregion
+
         #region WoW Realm Status
         public async Task<List<Realm>> GetRealmIndexAsync()
         {
