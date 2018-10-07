@@ -49,5 +49,13 @@ namespace BlizzardApiReader.WorldOfWarcraft
             return results["realms"];
         }
         #endregion
+
+        #region WoW Quests
+        public async Task<Quest> GetQuestAsync(int questId)
+        {
+            string query = $"/wow/quest/{questId}";
+            return await reader.GetAsync<Quest>(query);
+        }
+        #endregion
     }
 }
