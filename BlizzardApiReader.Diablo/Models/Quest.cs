@@ -8,8 +8,8 @@ namespace BlizzardApiReader.Diablo.Models
 {
     public class Quest
     {
-        public long id { get; set; }
-        public string name { get; set; }
-        public string slug { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Slug { get; set; }
     }
 }

@@ -57,5 +57,14 @@ namespace BlizzardApiReader.WorldOfWarcraft
             return await reader.GetAsync<Quest>(query);
         }
         #endregion
+
+        #region WoW Mount
+        public async Task<IEnumerable<Mount>> GetMountsAsync()
+        {
+            string query = "/wow/mount/";
+            var result = await reader.GetAsync<MountApiModel>(query);
+            return result.Mounts;
+        }
+        #endregion
     }
 }

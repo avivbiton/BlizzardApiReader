@@ -8,12 +8,12 @@ namespace BlizzardApiReader.Diablo.Models
 {
     public class Season
     {
-        public int seasonId { get; set; }
-        public int paragonLevel { get; set; }
-        public int paragonLevelHardcore { get; set; }
-        public Dictionary<string, long> kills { get; set; }
-        public Dictionary<string, float> timePlayed { get; set; }
-        public short highestHardcoreLevel { get; set; }
+        public int SeasonId { get; set; }
+        public int ParagonLevel { get; set; }
+        public int ParagonLevelHardcore { get; set; }
+        public Dictionary<string, long> Kills { get; set; }
+        public Dictionary<string, float> TimePlayed { get; set; }
+        public short HighestHardcoreLevel { get; set; }
 
     }
 }
