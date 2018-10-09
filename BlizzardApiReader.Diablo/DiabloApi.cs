@@ -94,16 +94,16 @@ namespace BlizzardApiReader.Diablo
 
         #region D3 item type api
 
-        public async Task<ItemType> GetItemTypesAsync()
+        public async Task<IEnumerable<ItemType>> GetItemTypesAsync()
         {
             string query = "/d3/data/item-type";
-            return await reader.GetAsync<ItemType>(query);
+            return await reader.GetAsync<IEnumerable<ItemType>>(query);
         }
 
-        public async Task<ItemTypeDetailed> GetItemTypeDetailedAsync(string itemTypeSlug)
+        public async Task<IEnumerable<ItemTypeDetailed>> GetItemTypeDetailedAsync(string itemTypeSlug)
         {
             string query = $"/d3/data/item-type/{itemTypeSlug}";
-            return await reader.GetAsync<ItemTypeDetailed>(query);
+            return await reader.GetAsync<IEnumerable<ItemTypeDetailed>>(query);
         }
         #endregion
 

@@ -8,7 +8,7 @@ namespace BlizzardApiReader.Diablo.Models
 {
     public class Artisan
     {
-        public string slug { get; set; }
-        public int level { get; set; }
+        public string Slug { get; set; }
+        public int Level { get; set; }
     }
 }

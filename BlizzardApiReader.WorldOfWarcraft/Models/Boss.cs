@@ -6,18 +6,18 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class Boss
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string urlSlug { get; set; }
-        public string description { get; set; }
-        public int zoneId { get; set; }
-        public bool availableInNormalMode { get; set; }
-        public bool availableInHeroicMode { get; set; }
-        public int health { get; set; }
-        public int heroicHealth { get; set; }
-        public int level { get; set; }
-        public int heroicLevel { get; set; }
-        public int journalId { get; set; }
-        public NPC[] npcs { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string UrlSlug { get; set; }
+        public string Description { get; set; }
+        public int ZoneId { get; set; }
+        public bool AvailableInNormalMode { get; set; }
+        public bool AvailableInHeroicMode { get; set; }
+        public int Health { get; set; }
+        public int HeroicHealth { get; set; }
+        public int Level { get; set; }
+        public int HeroicLevel { get; set; }
+        public int JournalId { get; set; }
+        public NPC[] Npcs { get; set; }
     }
 }

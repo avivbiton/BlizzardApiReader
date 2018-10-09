@@ -8,9 +8,9 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class Criteria
     {
-        public int id { get; set; }
-        public string description { get; set; }
-        public int orderIndex { get; set; }
-        public int max { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public int OrderIndex { get; set; }
+        public int Max { get; set; }
     }
 }
