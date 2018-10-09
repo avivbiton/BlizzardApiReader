@@ -8,9 +8,9 @@ namespace BlizzardApiReader.Diablo.Models
 {
     public class StoryAct 
     {
-        public string slug { get; set; }
-        public short number { get; set; }
-        public string name { get; set; }
-        public List<Quest> quests { get; set; }
+        public string Slug { get; set; }
+        public short Number { get; set; }
+        public string Name { get; set; }
+        public List<Quest> Quests { get; set; }
     }
 }
