@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlizzardApiReader.Core;
 using BlizzardApiReader.Core.Models;
@@ -100,10 +100,10 @@ namespace BlizzardApiReader.Diablo
             return await reader.GetAsync<IEnumerable<ItemType>>(query);
         }
 
-        public async Task<ItemTypeDetailed> GetItemTypeDetailedAsync(string itemTypeSlug)
+        public async Task<IEnumerable<ItemTypeDetailed>> GetItemTypeDetailedAsync(string itemTypeSlug)
         {
             string query = $"/d3/data/item-type/{itemTypeSlug}";
-            return await reader.GetAsync<ItemTypeDetailed>(query);
+            return await reader.GetAsync<IEnumerable<ItemTypeDetailed>>(query);
         }
         #endregion
 
