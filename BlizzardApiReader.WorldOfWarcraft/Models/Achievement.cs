@@ -8,15 +8,15 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class Achievement
     {
-        public int id { get; set; }
-        public string title { get; set; }
-        public int points { get; set; }
-        public string description { get; set; }
-        public string reward { get; set; }
-        public RewardItem[] rewardItems { get; set; }
-        public string icon { get; set; }
-        public Criteria[] criteria { get; set; }
-        public bool accountWide { get; set; }
-        public int factionId { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int Points { get; set; }
+        public string Description { get; set; }
+        public string Reward { get; set; }
+        public RewardItem[] RewardItems { get; set; }
+        public string Icon { get; set; }
+        public Criteria[] Criteria { get; set; }
+        public bool AccountWide { get; set; }
+        public int FactionId { get; set; }
     }
 }

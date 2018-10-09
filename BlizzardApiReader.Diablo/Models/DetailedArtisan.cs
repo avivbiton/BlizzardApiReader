@@ -9,33 +9,33 @@ namespace BlizzardApiReader.Diablo.Models
 {
     public class DetailedArtisan
     {
-        public string slug { get; set; }
-        public string name { get; set; }
-        public string portrait { get; set; }
+        public string Slug { get; set; }
+        public string Name { get; set; }
+        public string Portrait { get; set; }
 
-        [JsonProperty]
-        private Dictionary<string, List<ArtsianTier>> training { get; set; }
+        [JsonProperty("training")]
+        private Dictionary<string, List<ArtsianTier>> _training { get; set; }
 
         [JsonIgnore]
-        public List<ArtsianTier> tiers { get { return training["tiers"]; } set { training["tiers"] = value; } }
+        public List<ArtsianTier> Tiers { get { return _training["tiers"]; } set { _training["tiers"] = value; } }
 
 
         public class ArtsianTier
         {
-            public int tier { get; set; }
-            public List<ArtisanRecipe> trainedRecipes { get; set; }
+            public int Tier { get; set; }
+            public List<ArtisanRecipe> TrainedRecipes { get; set; }
 
         }
 
 
         public class ArtisanRecipe
         {
-            public string id { get; set; }
-            public string slug { get; set; }
-            public string name { get; set; }
-            public int cost { get; set; }
-            public List<ArtisanReagent> reagents { get; set; }
-            public ArtisanItem itemProduced { get; set; }
+            public string Id { get; set; }
+            public string Slug { get; set; }
+            public string Name { get; set; }
+            public int Cost { get; set; }
+            public List<ArtisanReagent> Reagents { get; set; }
+            public ArtisanItem ItemProduced { get; set; }
 
         }
 
@@ -45,8 +45,8 @@ namespace BlizzardApiReader.Diablo.Models
         /// </summary>
         public class ArtisanReagent
         {
-            public int quantity { get; set; }
-            public ArtisanItem item { get; set; }
+            public int Quantity { get; set; }
+            public ArtisanItem Item { get; set; }
 
         }
 
@@ -56,11 +56,11 @@ namespace BlizzardApiReader.Diablo.Models
         /// </summary>
         public class ArtisanItem
         {
-            public string id { get; set; }
-            public string slug { get; set; }
-            public string name { get; set; }
-            public string icon { get; set; }
-            public string path { get; set; }
+            public string Id { get; set; }
+            public string Slug { get; set; }
+            public string Name { get; set; }
+            public string Icon { get; set; }
+            public string Path { get; set; }
         }
 
 

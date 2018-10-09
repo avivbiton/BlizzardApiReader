@@ -8,21 +8,21 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class RewardItem
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string icon { get; set; }
-        public int quality { get; set; }
-        public int itemLevel { get; set; }
-        public TooltipParams tooltipParams { get; set; }
-        public object[] stats { get; set; }
-        public int armor { get; set; }
-        public string context { get; set; }
-        public object[] bonusLists { get; set; }
-        public int displayInfoId { get; set; }
-        public int artifactId { get; set; }
-        public int artifactAppearanceId { get; set; }
-        public object[] artifactTraits { get; set; }
-        public object[] relics { get; set; }
-        public object appearance { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Icon { get; set; }
+        public int Quality { get; set; }
+        public int ItemLevel { get; set; }
+        public TooltipParams TooltipParams { get; set; }
+        public object[] Stats { get; set; }
+        public int Armor { get; set; }
+        public string Context { get; set; }
+        public object[] BonusLists { get; set; }
+        public int DisplayInfoId { get; set; }
+        public int ArtifactId { get; set; }
+        public int ArtifactAppearanceId { get; set; }
+        public object[] ArtifactTraits { get; set; }
+        public object[] Relics { get; set; }
+        public object Appearance { get; set; }
     }
 }
