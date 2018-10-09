@@ -8,11 +8,11 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class TooltipParams
     {
-        public int timewalkerLevel { get; set; }
-        public int azeritePower0 { get; set; }
-        public int azeritePower1 { get; set; }
-        public int azeritePower2 { get; set; }
-        public int azeritePower3 { get; set; }
-        public int azeritePowerLevel { get; set; }
+        public int TimewalkerLevel { get; set; }
+        public int AzeritePower0 { get; set; }
+        public int AzeritePower1 { get; set; }
+        public int AzeritePower2 { get; set; }
+        public int AzeritePower3 { get; set; }
+        public int AzeritePowerLevel { get; set; }
     }
 }

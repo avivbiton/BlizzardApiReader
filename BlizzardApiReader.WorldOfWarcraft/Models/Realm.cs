@@ -1,19 +1,25 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 
 namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class Realm
     {
-        public string type { get; set; }
-        public string population { get; set; }
-        public bool queue { get; set; }
-        public bool status { get; set; }
-        public string name { get; set; }
-        public string slug { get; set; }
-        public string battlegroup { get; set; }
-        public string locale { get; set; }
-        public string timezone { get; set; }
-        public string[] connected_realms { get; set; }
+        public string Type { get; set; }
+        public string Population { get; set; }
+        public bool Queue { get; set; }
+        public bool Status { get; set; }
+        public string Name { get; set; }
+        public string Slug { get; set; }
+        public string Battlegroup { get; set; }
+        public string Locale { get; set; }
+        public string Timezone { get; set; }
+        /// <summary>
+        /// The strings returned to the ConnectedRealms correspond to the Slug of a Realm
+        /// </summary>
+        [JsonProperty(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
+        public string[] ConnectedRealms { get; set; }
     }
 }

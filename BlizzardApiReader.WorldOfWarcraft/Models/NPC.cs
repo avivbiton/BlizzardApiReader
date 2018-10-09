@@ -6,9 +6,9 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class NPC
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string urlSlug { get; set; }
-        public int creatureDisplayId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string UrlSlug { get; set; }
+        public int CreatureDisplayId { get; set; }
     }
 }

@@ -6,11 +6,11 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
     public class Quest
     {
-        public int id { get; set; }
-        public string title { get; set; }
-        public int reqLevel { get; set; }
-        public int suggestedPartyMembers { get; set; }
-        public string category { get; set; }
-        public int level { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int ReqLevel { get; set; }
+        public int SuggestedPartyMembers { get; set; }
+        public string Category { get; set; }
+        public int Level { get; set; }
     }
 }
