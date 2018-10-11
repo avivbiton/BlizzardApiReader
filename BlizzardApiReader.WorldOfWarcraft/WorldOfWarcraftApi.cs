@@ -41,12 +41,12 @@ namespace BlizzardApiReader.WorldOfWarcraft
         }
         #endregion
 
-        #region WoW Realm Status
-        public async Task<List<Realm>> GetRealmIndexAsync()
+        #region WoW Mount
+        public async Task<IEnumerable<Mount>> GetMountsAsync()
         {
-            string query = $"/wow/realm/status";
-            var results = await reader.GetAsync<Dictionary<string, List<Realm>>>(query);
-            return results["realms"];
+            string query = "/wow/mount/";
+            var result = await reader.GetAsync<MountApiModel>(query);
+            return result.Mounts;
         }
         #endregion
 
@@ -58,12 +58,20 @@ namespace BlizzardApiReader.WorldOfWarcraft
         }
         #endregion
 
-        #region WoW Mount
-        public async Task<IEnumerable<Mount>> GetMountsAsync()
+        #region WoW Realm Status
+        public async Task<List<Realm>> GetRealmIndexAsync()
         {
-            string query = "/wow/mount/";
-            var result = await reader.GetAsync<MountApiModel>(query);
-            return result.Mounts;
+            string query = $"/wow/realm/status";
+            var results = await reader.GetAsync<Dictionary<string, List<Realm>>>(query);
+            return results["realms"];
+        }
+        #endregion
+
+        #region WoW Spells
+        public async Task<Spell> GetSpellAsync(int spellId)
+        {
+            string query = $"/wow/spell/{spellId}";
+            return await reader.GetAsync<Spell>(query);
         }
         #endregion
     }
