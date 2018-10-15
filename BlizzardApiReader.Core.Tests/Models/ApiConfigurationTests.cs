@@ -2,7 +2,7 @@
 using BlizzardApiReader.Core.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+/*
 namespace BlizzardApiReader.Core.Tests
 {
     [TestClass]
@@ -115,3 +115,4 @@ namespace BlizzardApiReader.Core.Tests
         #endregion
     }
 }
+*/
