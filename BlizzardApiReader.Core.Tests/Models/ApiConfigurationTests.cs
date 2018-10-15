@@ -5,6 +5,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 /*
 namespace BlizzardApiReader.Core.Tests
 {
+
+
+    ** need to update these tests to the new system
+    * 
+
     [TestClass]
     public class ApiConfigurationTests
     {

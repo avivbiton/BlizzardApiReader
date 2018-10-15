@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using BlizzardApiReader.Core.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using BlizzardApiReader.Core.Exceptions;
 
 namespace BlizzardApiReader.Core
 {
     public class ApiReader
     {
         private const string url = "https://REGION.api.blizzard.com";
-
         /// <summary>
         /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
         /// </summary>
@@ -38,9 +38,7 @@ namespace BlizzardApiReader.Core
 
         public async Task<T> GetAsync<T>(string query)
         {
-            verifyConfigurationIsValid();
-            if (limiters.AnyReachedLimit())
-                throw new RateLimitReachedException("http request was blocked by RateLimiter");
+            throwIfInvalidRequest();
 
             string urlRequest = parseUrl(query);
             HttpResponseMessage response = await webClient.MakeHttpRequestAsync(urlRequest);
@@ -51,22 +49,44 @@ namespace BlizzardApiReader.Core
                 string json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<T>(json);
             }
-
-            return default;
+            else
+            {
+                throw new BadResponseException("Response is not successful", response);
+            }
+            
         }
 
-        public async Task<string> RequestToken()
+        /// <summary>
+        /// Sends token request and sets it as the current token.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> SendTokenRequest()
         {
             var response = await webClient.RequestAccessTokenAsync(getConfiguration());
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
                 JObject jObject = JObject.Parse(json);
-                return (string)jObject["access_token"];
+                token = (string)jObject["access_token"];
+                return token;
             }
             //TODO: Add better error handling
             throw new HttpRequestException("response code was not successful");
         }
+
+
+        private void throwIfInvalidRequest()
+        {
+
+            if (String.IsNullOrEmpty(token))
+                throw new NullReferenceException("Token is null, Send a token request first");
+
+            verifyConfigurationIsValid();
+
+            if (limiters.AnyReachedLimit())
+                throw new RateLimitReachedException("http request was blocked by RateLimiter");
+        }
+
 
         private void verifyConfigurationIsValid()
         {
@@ -81,7 +101,7 @@ namespace BlizzardApiReader.Core
 
             string region = getConfiguration().GetRegionString();
             string newUrl = url.Replace("REGION", region.ToLower());
-            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&token=" + token;
+            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&access_token=" + token;
             return newUrl;
         }
 

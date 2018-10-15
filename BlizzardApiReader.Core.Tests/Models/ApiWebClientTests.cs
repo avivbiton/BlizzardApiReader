@@ -1,10 +1,11 @@
 ﻿using BlizzardApiReader.Core.Enums;
 using BlizzardApiReader.Core.Models;
+using BlizzardApiReader.Diablo.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 
 namespace BlizzardApiReader.Core.Tests
 {
@@ -12,24 +13,8 @@ namespace BlizzardApiReader.Core.Tests
     public class ApiWebClientTests
     {
 
+        //TODO: Add tests
 
-        [TestMethod]
-        public void Test()
-        {
-            Task.Run(async () =>
-            {
-                ApiWebClient client = new ApiWebClient();
-                var config = ApiConfiguration.Default().SetRegion(Region.Europe).SetClientId("invalid")
-                .SetClientSecret("invalid");
-                
-
-                var request = await client.RequestAccessTokenAsync(config);
-
-                string token = await request.Content.ReadAsStringAsync();
-
-                throw new Exception(token);
-            }).GetAwaiter().GetResult();
-
-        }
+       
     }
 }
