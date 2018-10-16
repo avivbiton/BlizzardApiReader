@@ -1,4 +1,4 @@
-﻿using BlizzardApiReader.Core.Enums;
+using BlizzardApiReader.Core.Enums;
 using BlizzardApiReader.Core.Extensions;
 using System;
 
@@ -11,20 +11,11 @@ namespace BlizzardApiReader.Core.Models
         public string ClientId;
         public string ClientSecret;
 
-        public ApiConfiguration() : this(Region.UnitedStates)
-        {
-
-        }
-        public ApiConfiguration(Region region) : this(region, region.GetDefaultLocale())
-        {
-
-        }
-        public ApiConfiguration(Region region, Locale locale)
+        public ApiConfiguration()
         {
 
         }
 
-       
         public static ApiConfiguration Default()
         {
             return new ApiConfiguration();
