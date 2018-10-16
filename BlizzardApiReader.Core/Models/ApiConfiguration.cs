@@ -11,6 +11,10 @@ namespace BlizzardApiReader.Core.Models
         public string ClientId;
         public string ClientSecret;
 
+        public ApiConfiguration()
+        {
+            ResultLocale = ApiRegion.GetDefaultLocale();
+        }
        
         public static ApiConfiguration CreateDefault()
         {

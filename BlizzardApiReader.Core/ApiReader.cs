@@ -24,7 +24,8 @@ namespace BlizzardApiReader.Core
         public ApiConfiguration Configuration;
 
         private IWebClient webClient;
-        private string token;
+        private string _token;
+        private DateTime _tokenExpiration;
 
         public ApiReader(ApiConfiguration apiConfiguration = null)
         {
@@ -45,6 +46,11 @@ namespace BlizzardApiReader.Core
         public async Task<T> GetAsync<T>(string query)
         {
             throwIfInvalidRequest();
+
+            if (!IsValidToken())
+            {
+                await SendTokenRequest();
+            }
 
             string urlRequest = parseUrl(query);
             HttpResponseMessage response = await webClient.MakeHttpRequestAsync(urlRequest);
@@ -73,8 +79,10 @@ namespace BlizzardApiReader.Core
             {
                 string json = await response.Content.ReadAsStringAsync();
                 JObject jObject = JObject.Parse(json);
-                token = (string)jObject["access_token"];
-                return token;
+                _token = (string)jObject["access_token"];
+                int expiresInSeconds = (int)jObject["expires_in"];
+                _tokenExpiration = DateTime.Now.AddSeconds(expiresInSeconds);
+                return _token;
             }
             //TODO: Add better error handling
             throw new HttpRequestException("response code was not successful");
@@ -84,13 +92,20 @@ namespace BlizzardApiReader.Core
         private void throwIfInvalidRequest()
         {
 
-            if (String.IsNullOrEmpty(token))
-                throw new NullReferenceException("Token is null, Send a token request first");
-
             verifyConfigurationIsValid();
 
             if (limiters.AnyReachedLimit())
                 throw new RateLimitReachedException("http request was blocked by RateLimiter");
+        }
+        private bool IsValidToken()
+        {
+            if (String.IsNullOrEmpty(_token)
+                || DateTime.Now > _tokenExpiration)
+            {
+                return false;
+            }
+
+            return true;
         }
 
 
@@ -107,7 +122,7 @@ namespace BlizzardApiReader.Core
 
             string region = getConfiguration().GetRegionString();
             string newUrl = url.Replace("REGION", region.ToLower());
-            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&access_token=" + token;
+            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&access_token=" + _token;
             return newUrl;
         }
 
