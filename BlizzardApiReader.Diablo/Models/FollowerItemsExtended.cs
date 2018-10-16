@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains item information for all followers
     /// </summary>
-    public class ProfileHeroFollowerItems
+    public class FollowerItemsExtended
     {
         public FollowerItems Templar { get; set; }
         public FollowerItems Scoundrel { get; set; }
@@ -14,12 +14,12 @@
         /// </summary>
         public class FollowerItems
         {
-            public ProfileItem Neck { get; set; }
-            public ProfileItem LeftFinger { get; set; }
-            public ProfileItem RightFinger { get; set; }
-            public ProfileItem MainHand { get; set; }
-            public ProfileItem OffHand { get; set; }
-            public ProfileItem Special { get; set; }
+            public ItemExtended Neck { get; set; }
+            public ItemExtended LeftFinger { get; set; }
+            public ItemExtended RightFinger { get; set; }
+            public ItemExtended MainHand { get; set; }
+            public ItemExtended OffHand { get; set; }
+            public ItemExtended Special { get; set; }
         }
     }
 }

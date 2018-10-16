@@ -35,22 +35,22 @@ namespace BlizzardApiReader.Diablo
             return await reader.GetAsync<BattleAccount>(query);
         }
 
-        public async Task<ProfileHero> GetApiHeroAsync(string battleTag, long heroId)
+        public async Task<HeroExtended> GetApiHeroAsync(string battleTag, long heroId)
         {
             string query = $"/d3/profile/{battleTag}/hero/{heroId}/";
-            return await reader.GetAsync<ProfileHero>(query);
+            return await reader.GetAsync<HeroExtended>(query);
         }
 
-        public async Task<ProfileHeroItems> GetApiDetailedHeroItemsAsync(string battleTag, long heroId)
+        public async Task<HeroItemsExtended> GetApiDetailedHeroItemsAsync(string battleTag, long heroId)
         {
             string query = $"/d3/profile/{battleTag}/hero/{heroId}/items/";
-            return await reader.GetAsync<ProfileHeroItems>(query);
+            return await reader.GetAsync<HeroItemsExtended>(query);
         }
 
-        public async Task<ProfileHeroFollowerItems> GetApiDetailedFollowerItemsAsync(string battleTag, long heroId)
+        public async Task<FollowerItemsExtended> GetApiDetailedFollowerItemsAsync(string battleTag, long heroId)
         {
             string query = $"/d3/profile/{battleTag}/hero/{heroId}/follower-items/";
-            return await reader.GetAsync<ProfileHeroFollowerItems>(query);
+            return await reader.GetAsync<FollowerItemsExtended>(query);
         }
 
         #endregion
