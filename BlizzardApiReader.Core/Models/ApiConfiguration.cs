@@ -11,6 +11,19 @@ namespace BlizzardApiReader.Core.Models
         public string ClientId;
         public string ClientSecret;
 
+        public ApiConfiguration() : this(Region.UnitedStates)
+        {
+
+        }
+        public ApiConfiguration(Region region) : this(region, region.GetDefaultLocale())
+        {
+
+        }
+        public ApiConfiguration(Region region, Locale locale)
+        {
+
+        }
+
        
         public static ApiConfiguration Default()
         {
