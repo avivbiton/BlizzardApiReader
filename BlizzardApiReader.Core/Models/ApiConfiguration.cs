@@ -12,7 +12,7 @@ namespace BlizzardApiReader.Core.Models
         public string ClientSecret;
 
        
-        public static ApiConfiguration Default()
+        public static ApiConfiguration CreateDefault()
         {
             return new ApiConfiguration();
         }

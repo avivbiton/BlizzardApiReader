@@ -20,6 +20,7 @@ namespace BlizzardApiReader.Core
         private static ApiConfiguration defaultConfig { get; set; }
         private static LimitersList limiters { get; } = new LimitersList();
 
+
         public ApiConfiguration Configuration;
 
         private IWebClient webClient;
@@ -34,6 +35,11 @@ namespace BlizzardApiReader.Core
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
         {
             defaultConfig = configuration;
+        }
+
+        public static void ClearDefaultConfiguration()
+        {
+            defaultConfig = null;
         }
 
         public async Task<T> GetAsync<T>(string query)
