@@ -1,4 +1,4 @@
-using BlizzardApiReader.Core.Enums;
+﻿using BlizzardApiReader.Core.Enums;
 using BlizzardApiReader.Core.Extensions;
 using System;
 
@@ -13,9 +13,9 @@ namespace BlizzardApiReader.Core.Models
 
         public ApiConfiguration()
         {
-
+            ResultLocale = ApiRegion.GetDefaultLocale();
         }
-
+       
         public static ApiConfiguration Default()
         {
             return new ApiConfiguration();
