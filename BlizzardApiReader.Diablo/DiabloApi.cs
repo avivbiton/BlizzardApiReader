@@ -26,7 +26,8 @@ namespace BlizzardApiReader.Diablo
         {
             reader.Configuration = newConfiguration;
         }
-
+        
+        #region D3 Profile Api
 
         public async Task<BattleAccount> GetApiAccountAsync(string battleTag)
         {
@@ -34,6 +35,25 @@ namespace BlizzardApiReader.Diablo
             return await reader.GetAsync<BattleAccount>(query);
         }
 
+        public async Task<HeroExtended> GetApiHeroAsync(string battleTag, long heroId)
+        {
+            string query = $"/d3/profile/{battleTag}/hero/{heroId}/";
+            return await reader.GetAsync<HeroExtended>(query);
+        }
+
+        public async Task<HeroItemsExtended> GetApiDetailedHeroItemsAsync(string battleTag, long heroId)
+        {
+            string query = $"/d3/profile/{battleTag}/hero/{heroId}/items/";
+            return await reader.GetAsync<HeroItemsExtended>(query);
+        }
+
+        public async Task<FollowerItemsExtended> GetApiDetailedFollowerItemsAsync(string battleTag, long heroId)
+        {
+            string query = $"/d3/profile/{battleTag}/hero/{heroId}/follower-items/";
+            return await reader.GetAsync<FollowerItemsExtended>(query);
+        }
+
+        #endregion
 
         #region D3 Act Api
 
