@@ -1,4 +1,5 @@
 ﻿using BlizzardApiReader.Core.Enums;
+using BlizzardApiReader.Core.Extensions;
 using BlizzardApiReader.Core.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,110 +9,101 @@ namespace BlizzardApiReader.Core.Tests
     [TestClass]
     public class ApiConfigurationTests
     {
+        private readonly Locale defaultLocale;
+        private readonly Region defaultRegion;
+
         #region Constructor
         [TestMethod]
         public void Constructor_NoParameter_DefaultConfigurations()
         {
             var configuration = new ApiConfiguration();
 
-            configuration.ApiRegion.Should().BeEquivalentTo(Region.UnitedStates);
-            configuration.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
-            configuration.ApiKey.Should().BeNull();
+            configuration.ApiRegion.Should().BeEquivalentTo(defaultRegion);
+            configuration.ResultLocale.Should().BeEquivalentTo(defaultLocale);
+            configuration.ClientId.Should().BeNull();
+            configuration.ClientSecret.Should().BeNull();
         }
 
-        [TestMethod]
-        public void Constructor_ApiKeyParameter_DefaultConfigurations()
-        {
-            var configuration = new ApiConfiguration("anyapikey");
-
-            configuration.ApiRegion.Should().BeEquivalentTo(Region.UnitedStates);
-            configuration.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
-        }
-
-        [TestMethod]
-        public void Constructor_RegionParameter_DefaultLocale()
-        {
-            var configuration = new ApiConfiguration(Region.Europe, "anyapikey");
-
-            configuration.ApiRegion.Should().BeEquivalentTo(Region.Europe);
-            configuration.ResultLocale.Should().BeEquivalentTo(Locale.BritishEnglish);
-        }
-
-        [TestMethod]
-        public void Constructor_AllParameters_Configurations()
-        {
-            var configuration = new ApiConfiguration(Region.Europe, Locale.Korean, "anyapikey");
-
-            configuration.ApiRegion.Should().BeEquivalentTo(Region.Europe);
-            configuration.ResultLocale.Should().BeEquivalentTo(Locale.Korean);
-        }
         #endregion
 
         #region CreateEmpty
         [TestMethod]
-        public void CreateEmpty_NoParameter_DefaultConfigurations()
+        public void CreateDefault_NoParameter_DefaultConfigurations()
         {
-            var config = ApiConfiguration.CreateEmpty();
+            var config = ApiConfiguration.CreateDefault();
 
-            config.ApiRegion.Should().BeEquivalentTo(Region.UnitedStates);
-            config.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
-            config.ApiKey.Should().BeNull();
+            config.ApiRegion.Should().BeEquivalentTo(defaultRegion);
+            config.ResultLocale.Should().BeEquivalentTo(defaultLocale);
+            config.ClientId.Should().BeNull();
+            config.ClientSecret.Should().BeNull();
         }
         #endregion
 
         #region SetRegion
+
         [TestMethod]
-        public void SetRegion_RegionParameter_ExpectedRegion()
+        public void SetRegion_ShouldSetCorrectlyTest()
         {
-            var config = new ApiConfiguration(Region.UnitedStates, Locale.AmericanEnglish, "anyapikey");
+            var config = new ApiConfiguration();
+
+            config.SetRegion(Region.Taiwan);
+            config.ApiRegion.Should().BeEquivalentTo(Region.Taiwan);
+        }
+
+        [TestMethod]
+        public void SetRegionWithDefaultLocaleTest()
+        {
+            var config = new ApiConfiguration();
+
+            config.SetRegion(Region.SoutheastAsia, true);
+            config.ApiRegion.Should().BeEquivalentTo(Region.SoutheastAsia);
+            config.ResultLocale.Should().BeEquivalentTo(Region.SoutheastAsia.GetDefaultLocale());
+        }
+
+
+        [TestMethod]
+        public void SetRegion_ShouldNotOverrideLocaleWhenFalse()
+        {
+            var config = new ApiConfiguration();
 
             config = config.SetRegion(Region.Korea);
             config.ApiRegion.Should().BeEquivalentTo(Region.Korea);
-            config.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
+            config.ResultLocale.Should().BeEquivalentTo(defaultLocale);
         }
 
-        [TestMethod]
-        public void SetRegion_UseDefaultLocale_ExpectedLocale()
-        {
-            var config = new ApiConfiguration(Region.UnitedStates, Locale.AmericanEnglish, "anyapikey");
-
-            config = config.SetRegion(Region.Korea, true);
-            config.ApiRegion.Should().BeEquivalentTo(Region.Korea);
-            config.ResultLocale.Should().BeEquivalentTo(Locale.Korean);
-        }
-
-        [TestMethod]
-        public void SetRegion_DoNotUseDefaultLocale_ExpectedLocale()
-        {
-            var config = new ApiConfiguration(Region.UnitedStates, Locale.AmericanEnglish, "anyapikey");
-
-            config = config.SetRegion(Region.Korea, false);
-            config.ApiRegion.Should().BeEquivalentTo(Region.Korea);
-            config.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
-        }
         #endregion
 
         #region SetLocale
         [TestMethod]
-        public void SetLocale_LocaleParameter_ExpectedLocale()
+        public void SetLocale_ShouldSetCorrectlyTest()
         {
-            var config = new ApiConfiguration(Region.UnitedStates, Locale.AmericanEnglish, "anyapikey");
+            var config = new ApiConfiguration();
 
             config = config.SetLocale(Locale.TraditionalChinese);
-            config.ApiRegion.Should().BeEquivalentTo(Region.UnitedStates);
+            config.ApiRegion.Should().BeEquivalentTo(defaultRegion);
             config.ResultLocale.Should().BeEquivalentTo(Locale.TraditionalChinese);
         }
         #endregion
 
-        #region UseDefaultLocale
         [TestMethod]
-        public void UseDefaultLocale_NoParameter_ExpectedLocale()
+        public void SetClientId_ShouldSetCorrectlyTest()
         {
-            var config = new ApiConfiguration(Region.UnitedStates, Locale.Korean, "anyapikey");
+            var config = new ApiConfiguration();
 
-            config = config.UseDefaultLocale();
-            config.ResultLocale.Should().BeEquivalentTo(Locale.AmericanEnglish);
+            config.SetClientId("test");
+            config.ClientId.Should().Be("test");
+            config.ClientSecret.Should().BeNull();
         }
-        #endregion
+
+        [TestMethod]
+        public void SetClientSecret_ShouldSetCorrectlyTest()
+        {
+            var config = new ApiConfiguration();
+            config.SetClientSecret("test");
+            config.ClientSecret.Should().Be("test");
+            config.ClientId.Should().BeNull();
+        }
+
+
     }
 }
