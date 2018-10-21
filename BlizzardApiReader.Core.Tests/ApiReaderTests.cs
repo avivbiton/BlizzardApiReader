@@ -1,13 +1,18 @@
-﻿using BlizzardApiReader.Core.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.IO;
 using System.Threading.Tasks;
+using FluentAssertions;
+using System.Net.Http;
 
 namespace BlizzardApiReader.Core.Tests
 {
     [TestClass]
     public class ApiReaderTests
     {
+
+        private ApiConfiguration defaultConfig = ApiConfiguration.CreateDefault();
+
         [TestMethod]
         public void GetAsync_ShouldThrowIfInvalidTest()
         {
@@ -31,19 +36,26 @@ namespace BlizzardApiReader.Core.Tests
         }
 
         [TestMethod]
-        public void GetAsync_ShouldThrowWithoutTokenTest()
+        public void SendRequestToken_ShouldGetTokenFromJsonCorrectly()
         {
-            var reader = new ApiReader(ApiConfiguration.CreateDefault());
+
             Task.Run(async () =>
             {
+
+                string json = readMockDataFromFile($"/../../../MockData/tokenMock.json");
+
+                var client = new Mock<IWebClient>();
+                var response = new Mock<IApiResponse>();
+                response.Setup(i => i.IsSuccessful()).Returns(true);
+                response.Setup(i => i.ReadContentAsync()).ReturnsAsync(json);
+
+                client.Setup(i => i.RequestAccessTokenAsync(defaultConfig)).ReturnsAsync(response.Object);
+
+                var reader = new ApiReader(defaultConfig, client.Object);
                 try
                 {
-                    await reader.GetAsync<object>("anyquery");
-                    Assert.Fail();
-                }
-                catch (NullReferenceException ex)
-                {
-                
+                    string token = await reader.SendTokenRequest();
+                    token.Should().Be("TOKENGOESHERE");
                 }
                 catch
                 {
@@ -51,11 +63,43 @@ namespace BlizzardApiReader.Core.Tests
                 }
 
             }).GetAwaiter().GetResult();
-
         }
 
 
-        //TODO: continue adding tests with mock lib
+        [TestMethod]
+        public void SendTokenRequest_ShouldThrowWhenNotSuccessful()
+        {
+            Task.Run(async () =>
+            {
+                var client = new Mock<IWebClient>();
+                var response = new Mock<IApiResponse>();
+                response.Setup(i => i.IsSuccessful()).Returns(false);
+
+                client.Setup(i => i.RequestAccessTokenAsync(defaultConfig)).ReturnsAsync(response.Object);
+                var reader = new ApiReader(defaultConfig, client.Object);
+                try
+                {
+
+                    await reader.SendTokenRequest();
+                    Assert.Fail();
+                }
+                catch (HttpRequestException ex)
+                {
+
+                }
+                catch
+                {
+                    Assert.Fail();
+                }
+
+            }).GetAwaiter().GetResult();
+        }
+
+        private string readMockDataFromFile(string path)
+        {
+            return File.ReadAllText($"{Directory.GetCurrentDirectory()}{path}");
+        }
+
 
     }
 }

@@ -7,14 +7,14 @@ namespace BlizzardApiReader.Core.Exceptions
 {
     public class BadResponseException : Exception
     {
-        public HttpResponseMessage ResponseMessage;
+        public IApiResponse ResponseMessage;
 
-        public BadResponseException(string message, HttpResponseMessage responseMessage) : base(message)
+        public BadResponseException(string message, IApiResponse responseMessage) : base(message)
         {
             ResponseMessage = responseMessage;
         }
 
-        public BadResponseException(HttpResponseMessage responseMessage) : base()
+        public BadResponseException(IApiResponse responseMessage) : base()
         {
             ResponseMessage = responseMessage;
         }

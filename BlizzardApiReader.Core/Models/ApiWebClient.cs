@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using BlizzardApiReader.Core.Models;
 
 namespace BlizzardApiReader.Core
 {
@@ -14,17 +13,18 @@ namespace BlizzardApiReader.Core
         private const string AUTH_URL = "https://REGION.battle.net/oauth/token";
 
 
-        public async Task<HttpResponseMessage> MakeHttpRequestAsync(string urlRequest)
+        public async Task<IApiResponse> MakeHttpRequestAsync(string urlRequest)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                return await client.GetAsync(urlRequest);
+                var response = await client.GetAsync(urlRequest);
+                return new ApiResponse(response);
             }
         }
 
-        public async Task<HttpResponseMessage> RequestAccessTokenAsync(ApiConfiguration configuration)
+        public async Task<IApiResponse> RequestAccessTokenAsync(ApiConfiguration configuration)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -38,7 +38,9 @@ namespace BlizzardApiReader.Core
                 });
                 string url = AUTH_URL.Replace("REGION", configuration.GetRegionString());
 
-                return await client.PostAsync(url, requestContent);
+
+                var response =  await client.PostAsync(url, requestContent);
+                return new ApiResponse(response);
             }
         }
 

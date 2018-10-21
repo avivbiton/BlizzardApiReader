@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using BlizzardApiReader.Core.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using BlizzardApiReader.Core.Exceptions;
@@ -23,14 +19,17 @@ namespace BlizzardApiReader.Core
 
         public ApiConfiguration Configuration;
 
-        private IWebClient webClient;
+        private IWebClient _webClient;
         private string _token;
         private DateTime _tokenExpiration;
 
-        public ApiReader(ApiConfiguration apiConfiguration = null)
+        public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
         {
             Configuration = apiConfiguration;
-            webClient = new ApiWebClient();
+            if (webClient == null)
+                _webClient = new ApiWebClient();
+            else
+                _webClient = webClient;
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
@@ -47,25 +46,25 @@ namespace BlizzardApiReader.Core
         {
             throwIfInvalidRequest();
 
-            if (!IsValidToken())
+            if (tokenExpired())
             {
                 await SendTokenRequest();
             }
 
             string urlRequest = parseUrl(query);
-            HttpResponseMessage response = await webClient.MakeHttpRequestAsync(urlRequest);
+            IApiResponse response = await _webClient.MakeHttpRequestAsync(urlRequest);
             limiters.NotifyAll(this, response);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessful())
             {
-                string json = await response.Content.ReadAsStringAsync();
+                string json = await response.ReadContentAsync();
                 return JsonConvert.DeserializeObject<T>(json);
             }
             else
             {
                 throw new BadResponseException("Response is not successful", response);
             }
-            
+
         }
 
         /// <summary>
@@ -74,10 +73,10 @@ namespace BlizzardApiReader.Core
         /// <returns></returns>
         public async Task<string> SendTokenRequest()
         {
-            var response = await webClient.RequestAccessTokenAsync(getConfiguration());
-            if (response.IsSuccessStatusCode)
+            var response = await _webClient.RequestAccessTokenAsync(getConfiguration());
+            if (response.IsSuccessful())
             {
-                string json = await response.Content.ReadAsStringAsync();
+                string json = await response.ReadContentAsync();
                 JObject jObject = JObject.Parse(json);
                 _token = (string)jObject["access_token"];
                 int expiresInSeconds = (int)jObject["expires_in"];
@@ -97,15 +96,15 @@ namespace BlizzardApiReader.Core
             if (limiters.AnyReachedLimit())
                 throw new RateLimitReachedException("http request was blocked by RateLimiter");
         }
-        private bool IsValidToken()
+        private bool tokenExpired()
         {
             if (String.IsNullOrEmpty(_token)
                 || DateTime.Now > _tokenExpiration)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
 
