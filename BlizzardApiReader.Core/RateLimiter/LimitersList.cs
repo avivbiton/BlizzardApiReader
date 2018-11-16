@@ -42,7 +42,7 @@ namespace BlizzardApiReader.Core
             return rateLimiters.Any(i => i.IsAtRateLimit());
         }
 
-        public void NotifyAll(ApiReader reader, HttpResponseMessage responseMessage)
+        public void NotifyAll(ApiReader reader, IApiResponse responseMessage)
         {
             rateLimiters.ForEach(i => i.OnHttpRequest(reader, responseMessage));
         }

@@ -45,7 +45,7 @@ namespace BlizzardApiReader.Core
             return currentRateCounter >= RatesPerTimespan;
         }
 
-        public void OnHttpRequest(ApiReader reader, HttpResponseMessage responseMessage)
+        public void OnHttpRequest(ApiReader reader, IApiResponse responseMessage)
         {
             if (isReadyToReset())
                 resetLimiter();
