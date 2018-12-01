@@ -17,7 +17,7 @@ namespace BlizzardApiReader.Core
 
         public ApiWebClient(ApiConfiguration configuration)
         {
-            _configuration = configuration ?? throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object."); ;
+            _configuration = configuration;
             var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
             _apiClient = new HttpClient();
             _apiClient.DefaultRequestHeaders.Accept.Clear();

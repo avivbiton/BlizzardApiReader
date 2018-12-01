@@ -15,7 +15,6 @@ namespace BlizzardApiReader.Core
         private static ApiConfiguration defaultConfig { get; set; }
         private static LimitersList limiters { get; } = new LimitersList();
 
-
         private ApiConfiguration _configuration;
         public ApiConfiguration Configuration
         {
@@ -23,7 +22,7 @@ namespace BlizzardApiReader.Core
             set
             {
                 _configuration = value;
-                _webClient = new ApiWebClient(_configuration);
+                _webClient = Configuration != null ? new ApiWebClient(Configuration) : null;
             }
         }
 
@@ -33,11 +32,11 @@ namespace BlizzardApiReader.Core
 
         public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
         {
-            _configuration = apiConfiguration;
-            if (webClient == null)
-                _webClient = new ApiWebClient(Configuration);
-            else
+            Configuration = apiConfiguration;
+            if (webClient != null)
+            {
                 _webClient = webClient;
+            }
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
@@ -98,7 +97,6 @@ namespace BlizzardApiReader.Core
 
         private void ThrowIfInvalidRequest()
         {
-
             VerifyConfigurationIsValid();
 
             if (limiters.AnyReachedLimit())
@@ -119,7 +117,7 @@ namespace BlizzardApiReader.Core
 
         private void VerifyConfigurationIsValid()
         {
-            if (Configuration == null)
+            if (Configuration == null || _webClient == null)
                 throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
