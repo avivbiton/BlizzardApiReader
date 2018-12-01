@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -9,45 +10,50 @@ namespace BlizzardApiReader.Core
 {
     public class ApiWebClient : IWebClient
     {
+        private readonly HttpClient _apiClient;
+        private readonly HttpClient _authClient;
+        private readonly ApiConfiguration _configuration;
+        private readonly FormUrlEncodedContent _authRequestContent;
 
-        private const string AUTH_URL = "https://REGION.battle.net/oauth/token";
-
-
-        public async Task<IApiResponse> MakeHttpRequestAsync(string urlRequest)
+        public ApiWebClient(ApiConfiguration configuration)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = await client.GetAsync(urlRequest);
-                return new ApiResponse(response);
-            }
-        }
+            _configuration = configuration ?? throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object."); ;
+            var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
+            _apiClient = new HttpClient();
+            _apiClient.DefaultRequestHeaders.Accept.Clear();
+            _apiClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
 
-        public async Task<IApiResponse> RequestAccessTokenAsync(ApiConfiguration configuration)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                client.DefaultRequestHeaders.Authorization = authenticate(configuration.ClientId, configuration.ClientSecret);
-                var requestContent = new FormUrlEncodedContent(new Dictionary<string, string>
+            _authClient = new HttpClient();
+            AuthenticationHeaderValue authHeaderValue = new AuthenticationHeaderValue(
+                "Basic",
+                Convert.ToBase64String(
+                    Encoding.GetEncoding("ISO-8859-1")
+                    .GetBytes(_configuration.ClientId + ":" + _configuration.ClientSecret)));
+            _authClient.DefaultRequestHeaders.Accept.Clear();
+            _authClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
+            _authClient.DefaultRequestHeaders.Authorization = authHeaderValue;
+            _authRequestContent = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     { "grant_type", "client_credentials" }
                 });
-                string url = AUTH_URL.Replace("REGION", configuration.GetRegionString());
+            ServicePointManager.FindServicePoint(new Uri(_configuration.GetApiUrl()))
+                .ConnectionLeaseTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
+            ServicePointManager.FindServicePoint(new Uri(_configuration.GetAuthUrl()))
+                .ConnectionLeaseTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
+            ServicePointManager.DnsRefreshTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
 
-
-                var response =  await client.PostAsync(url, requestContent);
-                return new ApiResponse(response);
-            }
         }
 
-        private AuthenticationHeaderValue authenticate(string user, string password)
+        public async Task<IApiResponse> MakeApiRequestAsync(string path)
         {
-            String encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(user + ":" + password));
-            return new AuthenticationHeaderValue("Basic", encoded);
+            var response = await _apiClient.GetAsync(_configuration.GetApiUrl() + path);
+            return new ApiResponse(response);
+        }
+
+        public async Task<IApiResponse> RequestAccessTokenAsync()
+        {
+            var response =  await _authClient.PostAsync(_configuration.GetAuthUrl(), _authRequestContent);
+            return new ApiResponse(response);
         }
     }
 }

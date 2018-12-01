@@ -4,10 +4,7 @@ namespace BlizzardApiReader.Core
 {
     public interface IWebClient
     {
-
-        Task<IApiResponse> MakeHttpRequestAsync(string query);
-
-        Task<IApiResponse> RequestAccessTokenAsync(ApiConfiguration configuration);
-
+        Task<IApiResponse> MakeApiRequestAsync(string path);
+        Task<IApiResponse> RequestAccessTokenAsync();
     }
 }

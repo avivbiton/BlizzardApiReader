@@ -9,7 +9,6 @@ namespace BlizzardApiReader.Core
 {
     public class ApiReader
     {
-        private const string url = "https://REGION.api.blizzard.com";
         /// <summary>
         /// Default configuration will be used if api reader does not have a local instance of ApiConfiguration
         /// </summary>
@@ -17,7 +16,16 @@ namespace BlizzardApiReader.Core
         private static LimitersList limiters { get; } = new LimitersList();
 
 
-        public ApiConfiguration Configuration;
+        private ApiConfiguration _configuration;
+        public ApiConfiguration Configuration
+        {
+            get { return _configuration ?? defaultConfig; }
+            set
+            {
+                _configuration = value;
+                _webClient = new ApiWebClient(_configuration);
+            }
+        }
 
         private IWebClient _webClient;
         private string _token;
@@ -25,9 +33,9 @@ namespace BlizzardApiReader.Core
 
         public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
         {
-            Configuration = apiConfiguration;
+            _configuration = apiConfiguration;
             if (webClient == null)
-                _webClient = new ApiWebClient();
+                _webClient = new ApiWebClient(Configuration);
             else
                 _webClient = webClient;
         }
@@ -44,15 +52,15 @@ namespace BlizzardApiReader.Core
 
         public async Task<T> GetAsync<T>(string query)
         {
-            throwIfInvalidRequest();
+            ThrowIfInvalidRequest();
 
             if (tokenExpired())
             {
                 await SendTokenRequest();
             }
 
-            string urlRequest = parseUrl(query);
-            IApiResponse response = await _webClient.MakeHttpRequestAsync(urlRequest);
+            string urlRequest = ParsePath(query);
+            IApiResponse response = await _webClient.MakeApiRequestAsync(urlRequest);
             limiters.NotifyAll(this, response);
 
             if (response.IsSuccessful())
@@ -73,7 +81,7 @@ namespace BlizzardApiReader.Core
         /// <returns></returns>
         public async Task<string> SendTokenRequest()
         {
-            var response = await _webClient.RequestAccessTokenAsync(getConfiguration());
+            var response = await _webClient.RequestAccessTokenAsync();
             if (response.IsSuccessful())
             {
                 string json = await response.ReadContentAsync();
@@ -88,14 +96,15 @@ namespace BlizzardApiReader.Core
         }
 
 
-        private void throwIfInvalidRequest()
+        private void ThrowIfInvalidRequest()
         {
 
-            verifyConfigurationIsValid();
+            VerifyConfigurationIsValid();
 
             if (limiters.AnyReachedLimit())
                 throw new RateLimitReachedException("http request was blocked by RateLimiter");
         }
+
         private bool tokenExpired()
         {
             if (String.IsNullOrEmpty(_token)
@@ -108,36 +117,26 @@ namespace BlizzardApiReader.Core
         }
 
 
-        private void verifyConfigurationIsValid()
+        private void VerifyConfigurationIsValid()
         {
-            if (getConfiguration() == null)
+            if (Configuration == null)
                 throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
 
-        private string parseUrl(string query)
+        private string ParsePath(string query)
         {
-            query = parseSpecialCharacters(query);
-
-            string region = getConfiguration().GetRegionString();
-            string newUrl = url.Replace("REGION", region.ToLower());
-            newUrl += query + "?locale=" + getConfiguration().GetLocaleString() + "&access_token=" + _token;
-            return newUrl;
+            return ParseSpecialCharacters(query) 
+                + "?locale=" + Configuration.GetLocaleString() 
+                + "&access_token=" + _token;
         }
 
 
 
-        private string parseSpecialCharacters(string s)
+        private string ParseSpecialCharacters(string s)
         {
             s = s.Replace("#", "%23");
             return s;
-        }
-        private ApiConfiguration getConfiguration()
-        {
-            if (Configuration == null)
-                return defaultConfig;
-            else
-                return Configuration;
         }
     }
 }

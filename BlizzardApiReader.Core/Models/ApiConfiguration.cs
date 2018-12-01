@@ -11,8 +11,14 @@ namespace BlizzardApiReader.Core
         public string ClientId;
         public string ClientSecret;
 
+        private const string AUTH_URL_TEMPLATE = "https://REGION.battle.net/oauth/token";
+        private const string API_URL_TEMPLATE = "https://REGION.api.blizzard.com";
+        private string authUrl = string.Empty;
+        private string apiUrl = string.Empty;
+
         public ApiConfiguration()
         {
+            SetRegion(Region.Europe, true);
             ResultLocale = ApiRegion.GetDefaultLocale();
         }
        
@@ -48,6 +54,8 @@ namespace BlizzardApiReader.Core
         public ApiConfiguration SetRegion(Region region, bool useDefaultLocale)
         {
             ApiRegion = region;
+            apiUrl = API_URL_TEMPLATE.Replace("REGION", GetRegionString());
+            authUrl = AUTH_URL_TEMPLATE.Replace("REGION", GetRegionString());
             if (useDefaultLocale)
             {
                 ResultLocale = region.GetDefaultLocale();
@@ -74,9 +82,20 @@ namespace BlizzardApiReader.Core
         {
             return ResultLocale.GetEnumValue();
         }
+
         public string GetRegionString()
         {
             return ApiRegion.GetEnumValue();
+        }
+
+        public string GetAuthUrl()
+        {
+            return authUrl;
+        }
+
+        public string GetApiUrl()
+        {
+            return apiUrl;
         }
     }
 }
