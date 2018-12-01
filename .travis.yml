@@ -1,6 +1,6 @@
 language: csharp
 solution: BlizzardApiReader.sln
 mono: none
-dotnet: 2.1.5
+dotnet: 2.1.500
 script:
  - dotnet restore
