@@ -6,10 +6,10 @@ dotnet: 2.1.500
  
 jobs:
  include:
-  stage: Build
-  script:
-   - dotnet restore
-   - dotnet build
-  stage: Tests
-  script:
-   - dotnet test
+  - stage: Build
+    script:
+     - dotnet restore
+     - dotnet build
+  - stage: Tests
+    script:
+     - dotnet test
