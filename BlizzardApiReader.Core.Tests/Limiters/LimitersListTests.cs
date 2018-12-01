@@ -10,7 +10,7 @@ namespace BlizzardApiReader.Core.Tests
     public class LimitersListTests
     {
         [TestMethod]
-        public void AddRemoveCases()
+        public void AddRemoveLimiters_TestCorrectExceptions()
         {
             var limiter1 = new TimeRateLimiter(TimeSpan.FromSeconds(10), 5);
             var limiter2 = new TimeRateLimiter(TimeSpan.FromMinutes(1), 5);
@@ -35,7 +35,7 @@ namespace BlizzardApiReader.Core.Tests
         }
 
         [TestMethod]
-        public void AnyReachedLimit_ShouldTrueZeroAllowed()
+        public void AnyReachedLimit_ShouldTrueZeroRequestsAllowed()
         {
             var limiter1 = new TimeRateLimiter(TimeSpan.FromSeconds(10), 0);
             var limiters = new LimitersList();
@@ -44,7 +44,7 @@ namespace BlizzardApiReader.Core.Tests
         }
         
         [TestMethod]
-        public void AnyReachedLimit_ShouldTrueRealLimit()
+        public void AnyReachedLimit_ShouldTrueRealLimitReached()
         {
             var limiter1 = new TimeRateLimiter(TimeSpan.FromSeconds(10), 5);
             var limiter2 = new TimeRateLimiter(TimeSpan.FromMinutes(1), 5);

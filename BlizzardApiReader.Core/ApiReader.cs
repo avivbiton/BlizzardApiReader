@@ -53,7 +53,7 @@ namespace BlizzardApiReader.Core
         {
             ThrowIfInvalidRequest();
 
-            if (tokenExpired())
+            if (TokenExpired())
             {
                 await SendTokenRequest();
             }
@@ -103,9 +103,9 @@ namespace BlizzardApiReader.Core
                 throw new RateLimitReachedException("http request was blocked by RateLimiter");
         }
 
-        private bool tokenExpired()
+        private bool TokenExpired()
         {
-            if (String.IsNullOrEmpty(_token)
+            if (string.IsNullOrEmpty(_token)
                 || DateTime.Now > _tokenExpiration)
             {
                 return true;

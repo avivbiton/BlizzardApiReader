@@ -6,6 +6,7 @@ using FluentAssertions;
 using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace BlizzardApiReader.Core.Tests
 {
@@ -98,7 +99,7 @@ namespace BlizzardApiReader.Core.Tests
         }
 
         [TestMethod]
-        public void SendRequestToken_ShouldRequestNewIfExpired()
+        public void SendRequest_ShouldRequestANewTokenIfExpired()
         {
 
             Task.Run(async () =>
@@ -111,7 +112,7 @@ namespace BlizzardApiReader.Core.Tests
                 var client = new Mock<IWebClient>();
                 var response = new Mock<IApiResponse>();
                 response.Setup(i => i.IsSuccessful()).Returns(true);
-                response.Setup(i => i.ReadContentAsync()).ReturnsAsync(valid);
+                response.Setup(i => i.ReadContentAsync()).ReturnsAsync(expired);
 
                 client.Setup(i => i.RequestAccessTokenAsync()).ReturnsAsync(response.Object);
                 client.Setup(i => i.MakeApiRequestAsync(It.IsAny<string>())).ReturnsAsync(response.Object);
@@ -119,6 +120,8 @@ namespace BlizzardApiReader.Core.Tests
                 var reader = new ApiReader(defaultConfig, client.Object);
                 try
                 {
+                    await reader.GetAsync<Dictionary<string, string>>("anything");
+                    response.Setup(i => i.ReadContentAsync()).ReturnsAsync(valid);
                     var answer = await reader.GetAsync<Dictionary<string, string>>("anything");
                     answer.Should().BeEquivalentTo(expectedDict);
                 }

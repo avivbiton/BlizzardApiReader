@@ -29,7 +29,7 @@ namespace BlizzardApiReader.Core.Tests
         public void ReadContent_ShouldMatch()
         {
             string hello = "Hello";
-            var msg = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+            var msg = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             msg.Content = new StringContent(hello);
             var response = new ApiResponse(msg);
             Task.Run(async () =>
