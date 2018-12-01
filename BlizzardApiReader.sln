@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.WorldOfWa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{333FBEFD-AE34-4B35-87A0-4F2284F379F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.Client", "BlizzardApiReader.Client\BlizzardApiReader.Client.csproj", "{5E033E35-5D9D-4404-AD93-F4C6EF7D9261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{818A6DC3-B38D-4299-BC9E-AD324E8D1059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{818A6DC3-B38D-4299-BC9E-AD324E8D1059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{818A6DC3-B38D-4299-BC9E-AD324E8D1059}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E033E35-5D9D-4404-AD93-F4C6EF7D9261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E033E35-5D9D-4404-AD93-F4C6EF7D9261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E033E35-5D9D-4404-AD93-F4C6EF7D9261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E033E35-5D9D-4404-AD93-F4C6EF7D9261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
