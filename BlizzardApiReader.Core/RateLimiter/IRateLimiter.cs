@@ -11,7 +11,7 @@ namespace BlizzardApiReader.Core
     {
         bool IsAtRateLimit();
 
-        void OnHttpRequest(ApiReader reader, HttpResponseMessage response);
+        void OnHttpRequest(ApiReader reader, IApiResponse response);
 
     }
 }

@@ -1,0 +1,5 @@
+﻿{
+	"access_token": "TOKENGOESHERE",
+	"token_type": "bearer",
+	"expires_in": 86399
+}
