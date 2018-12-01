@@ -3,5 +3,13 @@ dist: trusty
 solution: BlizzardApiReader.sln
 mono: none
 dotnet: 2.1.500
-script:
- - dotnet test
+ 
+jobs:
+ include:
+  - stage: Build
+  script:
+   - dotnet restore
+   - dotnet build
+  - stage: Tests
+  script:
+   - dotnet test
