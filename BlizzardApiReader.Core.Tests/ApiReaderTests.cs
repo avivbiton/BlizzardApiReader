@@ -4,6 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
 using System.Net.Http;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BlizzardApiReader.Core.Tests
 {
@@ -86,6 +88,39 @@ namespace BlizzardApiReader.Core.Tests
                 catch (HttpRequestException ex)
                 {
 
+                }
+                catch
+                {
+                    Assert.Fail();
+                }
+
+            }).GetAwaiter().GetResult();
+        }
+
+        [TestMethod]
+        public void SendRequestToken_ShouldRequestNewIfExpired()
+        {
+
+            Task.Run(async () =>
+            {
+
+                string expired = readMockDataFromFile($"/../../../MockData/expiredTokenMock.json");
+                string valid = readMockDataFromFile($"/../../../MockData/tokenMock.json");
+                var expectedDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(valid);
+
+                var client = new Mock<IWebClient>();
+                var response = new Mock<IApiResponse>();
+                response.Setup(i => i.IsSuccessful()).Returns(true);
+                response.Setup(i => i.ReadContentAsync()).ReturnsAsync(valid);
+
+                client.Setup(i => i.RequestAccessTokenAsync()).ReturnsAsync(response.Object);
+                client.Setup(i => i.MakeApiRequestAsync(It.IsAny<string>())).ReturnsAsync(response.Object);
+
+                var reader = new ApiReader(defaultConfig, client.Object);
+                try
+                {
+                    var answer = await reader.GetAsync<Dictionary<string, string>>("anything");
+                    answer.Should().BeEquivalentTo(expectedDict);
                 }
                 catch
                 {
