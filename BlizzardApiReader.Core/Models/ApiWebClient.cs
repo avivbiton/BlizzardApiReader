@@ -19,11 +19,13 @@ namespace BlizzardApiReader.Core
         {
             _configuration = configuration;
             var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
-            _apiClient = new HttpClient();
+            _apiClient = new HttpClient(
+                new SocketsHttpHandler() { PooledConnectionLifetime = TimeSpan.FromMinutes(1) });
             _apiClient.DefaultRequestHeaders.Accept.Clear();
             _apiClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
 
-            _authClient = new HttpClient();
+            _authClient = new HttpClient(
+                new SocketsHttpHandler() { PooledConnectionLifetime = TimeSpan.FromMinutes(1) });
             AuthenticationHeaderValue authHeaderValue = new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(
@@ -32,16 +34,11 @@ namespace BlizzardApiReader.Core
             _authClient.DefaultRequestHeaders.Accept.Clear();
             _authClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
             _authClient.DefaultRequestHeaders.Authorization = authHeaderValue;
-            _authRequestContent = new FormUrlEncodedContent(new Dictionary<string, string>
+            _authRequestContent = new FormUrlEncodedContent(
+                new Dictionary<string, string>
                 {
                     { "grant_type", "client_credentials" }
                 });
-            ServicePointManager.FindServicePoint(new Uri(_configuration.GetApiUrl()))
-                .ConnectionLeaseTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
-            ServicePointManager.FindServicePoint(new Uri(_configuration.GetAuthUrl()))
-                .ConnectionLeaseTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
-            ServicePointManager.DnsRefreshTimeout = (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
-
         }
 
         public async Task<IApiResponse> MakeApiRequestAsync(string path)
