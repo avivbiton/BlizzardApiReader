@@ -33,6 +33,14 @@ namespace BlizzardApiReader.WorldOfWarcraft
         #endregion
 
         #region WoW Boss
+        public async Task<List<Boss>> GetBossesAsync()
+        {
+            string query = $"/wow/boss/";
+            
+            var results = await reader.GetAsync<Dictionary<string, List<Boss>>>(query);
+            return results["bosses"];
+        }
+
         public async Task<Boss> GetBossAsync(int bossId)
         {
             string query = $"/wow/boss/{bossId}";
@@ -71,6 +79,22 @@ namespace BlizzardApiReader.WorldOfWarcraft
         {
             string query = $"/wow/spell/{spellId}";
             return await reader.GetAsync<Spell>(query);
+        }
+        #endregion
+
+        #region Challenge Mode
+        public async Task<List<Challenge>> GetChallengesAsync(string realm)
+        {
+            string query = $"/wow/challenge/{realm}";
+            var results = await reader.GetAsync<Dictionary<string, List<Challenge>>>(query);
+            return results["challenge"];
+        }
+
+        public async Task<List<Challenge>> GetChallengesRegionAsync()
+        {
+            string query = $"/wow/challenge/region";
+            var results = await reader.GetAsync<Dictionary<string, List<Challenge>>>(query);
+            return results["challenge"];
         }
         #endregion
     }
