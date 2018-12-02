@@ -25,7 +25,15 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         public string GuildRealm { get; set; }
 
-        public int LastModified { get; set; }
+        public string LastModified { get; set; }
+
+        // Fields comming from profile
+
+        public string CalcClass { get; set; }
+
+        public int Faction { get; set; }
+
+        public int TotalHonorableKills { get; set; }
 
     }
 }
