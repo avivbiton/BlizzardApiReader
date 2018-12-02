@@ -17,5 +17,24 @@ namespace BlizzardApiReader.Core.Enums
         TraditionalChinese,
         [EnumValue("en_US")]
         AmericanEnglish,
+        [EnumValue("es_MX")]
+        MexicanSpanish,
+        [EnumValue("pt_BR")]
+        BrazilianPortuguese,
+        [EnumValue("de_de")]
+        German,
+        [EnumValue("es_ES")]
+        SpainSpanish,
+        [EnumValue("fr_FR")]
+        French,
+        [EnumValue("it_IT")]
+        Italian,
+        [EnumValue("pt_PT")]
+        PortugalPortuguese,
+        [EnumValue("ru_RU")]
+        Russian,
+        [EnumValue("zh_CN")]
+        SimplifiedChinese,
+
     }
 }

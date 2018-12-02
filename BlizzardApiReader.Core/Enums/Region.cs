@@ -13,11 +13,13 @@ namespace BlizzardApiReader.Core.Enums
         Europe,
         [EnumValue("KR")]
         Korea,
-        [EnumValue("SEA")]
+        [EnumValue("SEA")] //TODO: is this a valid Region?
         SoutheastAsia,
         [EnumValue("TW")]
         Taiwan,
         [EnumValue("US")]
         UnitedStates,
+        [EnumValue("CN")]
+        China,
     }
 }
