@@ -25,6 +25,8 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         public string GuildRealm { get; set; }
 
+        //TODO: Review format, sometimes comes with a value of 0, sometimes with >0
+        //TODO: Look for which format is used and how to deal with the 0 values.
         public string LastModified { get; set; }
 
         // Fields comming from profile
