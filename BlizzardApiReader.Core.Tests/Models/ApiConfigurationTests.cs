@@ -8,8 +8,6 @@ namespace BlizzardApiReader.Core.Tests
     [TestClass]
     public class ApiConfigurationTests
     {
-        private readonly Locale defaultLocale;
-        private readonly Region defaultRegion;
 
         #region Constructor
         [TestMethod]
@@ -17,8 +15,8 @@ namespace BlizzardApiReader.Core.Tests
         {
             var configuration = new ApiConfiguration();
 
-            configuration.ApiRegion.Should().BeEquivalentTo(defaultRegion);
-            configuration.ResultLocale.Should().BeEquivalentTo(defaultLocale);
+            configuration.ApiRegion.Should().BeEquivalentTo(default(Region));
+            configuration.ResultLocale.Should().BeEquivalentTo(default(Locale));
             configuration.ClientId.Should().BeNull();
             configuration.ClientSecret.Should().BeNull();
         }
@@ -31,8 +29,8 @@ namespace BlizzardApiReader.Core.Tests
         {
             var config = ApiConfiguration.CreateDefault();
 
-            config.ApiRegion.Should().BeEquivalentTo(defaultRegion);
-            config.ResultLocale.Should().BeEquivalentTo(defaultLocale);
+            config.ApiRegion.Should().BeEquivalentTo(default(Region));
+            config.ResultLocale.Should().BeEquivalentTo(default(Locale));
             config.ClientId.Should().BeNull();
             config.ClientSecret.Should().BeNull();
         }
@@ -67,7 +65,7 @@ namespace BlizzardApiReader.Core.Tests
 
             config = config.SetRegion(Region.Korea);
             config.ApiRegion.Should().BeEquivalentTo(Region.Korea);
-            config.ResultLocale.Should().BeEquivalentTo(defaultLocale);
+            config.ResultLocale.Should().BeEquivalentTo(default(Locale));
         }
 
         #endregion
@@ -79,7 +77,7 @@ namespace BlizzardApiReader.Core.Tests
             var config = new ApiConfiguration();
 
             config = config.SetLocale(Locale.TraditionalChinese);
-            config.ApiRegion.Should().BeEquivalentTo(defaultRegion);
+            config.ApiRegion.Should().BeEquivalentTo(default(Region));
             config.ResultLocale.Should().BeEquivalentTo(Locale.TraditionalChinese);
         }
         #endregion

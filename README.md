@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/oliverkovac/BlizzardApiReader.svg?branch=master)](https://travis-ci.com/oliverkovac/BlizzardApiReader)
+
 # Blizzard ApiReader
 C# .net Core library wrapper for Blizzard Public APIs
 
