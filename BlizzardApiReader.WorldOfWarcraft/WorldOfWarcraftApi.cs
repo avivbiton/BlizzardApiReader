@@ -97,5 +97,15 @@ namespace BlizzardApiReader.WorldOfWarcraft
             return results["challenge"];
         }
         #endregion
+
+        #region Character Profile
+        public async Task<Character> GetCharacterAsync(string realm, string characterName)
+        {
+            string query = $"/wow/character/{realm}/{characterName}";
+            return await reader.GetAsync<Character>(query);
+        }
+
+
+        #endregion 
     }
 }
