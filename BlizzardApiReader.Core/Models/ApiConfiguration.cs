@@ -17,7 +17,7 @@ namespace BlizzardApiReader.Core
         private string authUrl = string.Empty;
         private string apiUrl = string.Empty;
 
-        private WebProxy _WebProxy=null;
+        private WebProxy _WebProxy = null;
         private TimeSpan _PooledConnectionLifetime = TimeSpan.FromMinutes(1);
 
         public ApiConfiguration()
@@ -25,8 +25,8 @@ namespace BlizzardApiReader.Core
             SetRegion(Region.Europe, true);
             ResultLocale = ApiRegion.GetDefaultLocale();
         }
-       
-        public static ApiConfiguration CreateDefault()
+
+        public static ApiConfiguration Create()
         {
             return new ApiConfiguration();
         }
@@ -43,7 +43,7 @@ namespace BlizzardApiReader.Core
             ClientSecret = clientSecret;
             return this;
         }
-                
+
         public ApiConfiguration SetRegion(Region region)
         {
             return SetRegion(region, false);
@@ -84,14 +84,15 @@ namespace BlizzardApiReader.Core
             {
                 _WebProxy = null;
             }
-            else {
+            else
+            {
                 _WebProxy = new WebProxy()
                 {
                     Address = new Uri(proxy),
                     UseDefaultCredentials = true
                 };
             }
-            
+
             return this;
         }
 

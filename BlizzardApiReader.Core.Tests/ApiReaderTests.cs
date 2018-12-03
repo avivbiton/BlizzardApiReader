@@ -14,7 +14,7 @@ namespace BlizzardApiReader.Core.Tests
     public class ApiReaderTests
     {
 
-        private ApiConfiguration defaultConfig = ApiConfiguration.CreateDefault();
+        private ApiConfiguration defaultConfig = ApiConfiguration.Create();
 
         [TestMethod]
         public void GetAsync_ShouldThrowIfInvalidTest()

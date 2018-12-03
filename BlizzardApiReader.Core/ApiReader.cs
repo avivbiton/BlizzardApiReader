@@ -15,28 +15,37 @@ namespace BlizzardApiReader.Core
         private static ApiConfiguration defaultConfig { get; set; }
         private static LimitersList limiters { get; } = new LimitersList();
 
-        private ApiConfiguration _configuration;
+
+        private ApiConfiguration apiConfiguration;
         public ApiConfiguration Configuration
         {
-            get { return _configuration ?? defaultConfig; }
+            get { return apiConfiguration ?? defaultConfig; }
             set
             {
-                _configuration = value;
-                _webClient = Configuration != null ? new ApiWebClient(Configuration) : null;
+                apiConfiguration = value;
+                if(_webClient != null)
+                {
+                    _webClient.Initialize(Configuration);
+                }
             }
         }
 
-        private IWebClient _webClient;
+        private readonly IWebClient _webClient;
         private string _token;
         private DateTime _tokenExpiration;
 
         public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
         {
-            Configuration = apiConfiguration;
             if (webClient != null)
             {
                 _webClient = webClient;
             }
+            else
+            {
+                _webClient = new ApiWebClient();
+            }
+
+            Configuration = apiConfiguration;
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
@@ -51,15 +60,15 @@ namespace BlizzardApiReader.Core
 
         public async Task<T> GetAsync<T>(string query)
         {
-            ThrowIfInvalidRequest();
+            throwIfInvalidRequest();
 
-            if (TokenExpired())
+            if (hasTokenExpired())
             {
                 await SendTokenRequest();
             }
 
-            string urlRequest = ParsePath(query);
-            IApiResponse response = await _webClient.MakeApiRequestAsync(urlRequest);
+            string urlRequest = parsePath(query);
+            IApiResponse response = await _webClient.MakeApiRequestAsync(Configuration + urlRequest);
             limiters.NotifyAll(this, response);
 
             if (response.IsSuccessful())
@@ -95,15 +104,15 @@ namespace BlizzardApiReader.Core
         }
 
 
-        private void ThrowIfInvalidRequest()
+        private void throwIfInvalidRequest()
         {
-            VerifyConfigurationIsValid();
+            verifyConfigurationIsValid();
 
             if (limiters.AnyReachedLimit())
                 throw new RateLimitReachedException("http request was blocked by RateLimiter");
         }
 
-        private bool TokenExpired()
+        private bool hasTokenExpired()
         {
             if (string.IsNullOrEmpty(_token)
                 || DateTime.Now > _tokenExpiration)
@@ -115,23 +124,23 @@ namespace BlizzardApiReader.Core
         }
 
 
-        private void VerifyConfigurationIsValid()
+        private void verifyConfigurationIsValid()
         {
             if (Configuration == null || _webClient == null)
                 throw new NullReferenceException("ApiConfiguration is not set, either declare one as global configuration or set a local instance configuration object.");
         }
 
 
-        private string ParsePath(string query)
+        private string parsePath(string query)
         {
-            return ParseSpecialCharacters(query) 
+            return parseSpecialCharacters(query) 
                 + "?locale=" + Configuration.GetLocaleString() 
                 + "&access_token=" + _token;
         }
 
 
 
-        private string ParseSpecialCharacters(string s)
+        private string parseSpecialCharacters(string s)
         {
             s = s.Replace("#", "%23");
             return s;

@@ -6,5 +6,6 @@ namespace BlizzardApiReader.Core
     {
         Task<IApiResponse> MakeApiRequestAsync(string path);
         Task<IApiResponse> RequestAccessTokenAsync();
+        void Initialize(ApiConfiguration configuration);
     }
 }

@@ -10,21 +10,54 @@ namespace BlizzardApiReader.Core
 {
     public class ApiWebClient : IWebClient
     {
-        private readonly HttpClient _apiClient;
-        private readonly HttpClient _authClient;
-        private readonly ApiConfiguration _configuration;
-        private readonly FormUrlEncodedContent _authRequestContent;
+        private HttpClient _apiClient;
+        private HttpClient _authClient;
 
-        public ApiWebClient(ApiConfiguration configuration)
+
+        private readonly FormUrlEncodedContent _authRequestContent = new FormUrlEncodedContent(
+                new Dictionary<string, string>
+                {
+                    { "grant_type", "client_credentials" }
+                });
+
+        private string authPath;
+        private SocketsHttpHandler socketsHttpHandler;
+
+        public void Initialize(ApiConfiguration _configuration)
+        {
+            authPath = _configuration.GetAuthUrl();
+            socketsHttpHandler = createSocketsHandler(_configuration);
+
+            _apiClient = configureApiClient();
+            _authClient = configureAuthClient(authenticateHeader(_configuration.ClientId, _configuration.ClientSecret));
+        }
+
+        public async Task<IApiResponse> MakeApiRequestAsync(string path)
+        {
+            var response = await _apiClient.GetAsync(path);
+            return new ApiResponse(response);
+        }
+
+        public async Task<IApiResponse> RequestAccessTokenAsync()
+        {
+
+            FormUrlEncodedContent _authRequestContent = new FormUrlEncodedContent(
+                new Dictionary<string, string>
+                {
+                    { "grant_type", "client_credentials" }
+                });
+
+            var response = await _authClient.PostAsync(authPath, _authRequestContent);
+            return new ApiResponse(response);
+        }
+
+
+        private SocketsHttpHandler createSocketsHandler(ApiConfiguration _configuration)
         {
             SocketsHttpHandler socketsHttpHandler;
-
-            _configuration = configuration;
-            var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
-
             //if a proxy was configured use it for the connection
             if (_configuration.GetHttpProxy() != null)
-            {                
+            {
                 socketsHttpHandler = new SocketsHttpHandler()
                 {
                     Proxy = _configuration.GetHttpProxy(),
@@ -39,40 +72,37 @@ namespace BlizzardApiReader.Core
                 };
             }
 
-            _apiClient = new HttpClient(socketsHttpHandler);
+            return socketsHttpHandler;
+        }
+
+        private HttpClient configureApiClient()
+        {
+            var client = new HttpClient(socketsHttpHandler);
 
             _apiClient.DefaultRequestHeaders.Accept.Clear();
-            _apiClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
+            _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            _authClient = new HttpClient(socketsHttpHandler);
+            return client;
+        }
 
-            AuthenticationHeaderValue authHeaderValue = new AuthenticationHeaderValue(
+        private HttpClient configureAuthClient(AuthenticationHeaderValue header)
+        {
+            var client = new HttpClient(socketsHttpHandler);
+
+            _authClient.DefaultRequestHeaders.Accept.Clear();
+            _authClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _authClient.DefaultRequestHeaders.Authorization = header;
+
+            return client;
+        }
+
+        private AuthenticationHeaderValue authenticateHeader(string clientId, string clientSecret)
+        {
+            return new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(
                     Encoding.GetEncoding("ISO-8859-1")
-                    .GetBytes(_configuration.ClientId + ":" + _configuration.ClientSecret)));
-
-            _authClient.DefaultRequestHeaders.Accept.Clear();
-            _authClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
-            _authClient.DefaultRequestHeaders.Authorization = authHeaderValue;
-
-            _authRequestContent = new FormUrlEncodedContent(
-                new Dictionary<string, string>
-                {
-                    { "grant_type", "client_credentials" }
-                });
-        }
-
-        public async Task<IApiResponse> MakeApiRequestAsync(string path)
-        {
-            var response = await _apiClient.GetAsync(_configuration.GetApiUrl() + path);
-            return new ApiResponse(response);
-        }
-
-        public async Task<IApiResponse> RequestAccessTokenAsync()
-        {
-            var response =  await _authClient.PostAsync(_configuration.GetAuthUrl(), _authRequestContent);
-            return new ApiResponse(response);
+                    .GetBytes(clientId + ":" + clientSecret)));
         }
     }
 }

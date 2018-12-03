@@ -27,7 +27,7 @@ namespace BlizzardApiReader.Core.Tests
         [TestMethod]
         public void CreateDefault_NoParameter_DefaultConfigurations()
         {
-            var config = ApiConfiguration.CreateDefault();
+            var config = ApiConfiguration.Create();
 
             config.ApiRegion.Should().BeEquivalentTo(default(Region));
             config.ResultLocale.Should().BeEquivalentTo(default(Locale));
