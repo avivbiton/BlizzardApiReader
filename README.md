@@ -8,6 +8,9 @@ As I am also new to open source projects, I want to make this project first-time
 Don't be afraid to try and contribute and make mistakes, then we can learn and improve together.
 This project is also a learning process for me, please tell me if I am doing anything wrong.
 
+# WARNING
+This project is still under heavy development, it will often change drastically and therefore not recommended for production environments yet. If you are using this in production, you may only want to update this library after a major version.
+
 # Setup
 1) Fork this repo and then clone it.
 2) Compile it and put the compiled DLL inside your project.
