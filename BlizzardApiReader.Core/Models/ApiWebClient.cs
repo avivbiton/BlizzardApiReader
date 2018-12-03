@@ -17,23 +17,45 @@ namespace BlizzardApiReader.Core
 
         public ApiWebClient(ApiConfiguration configuration)
         {
+            SocketsHttpHandler socketsHttpHandler;
+
             _configuration = configuration;
             var jsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
-            _apiClient = new HttpClient(
-                new SocketsHttpHandler() { PooledConnectionLifetime = TimeSpan.FromMinutes(1) });
+
+            //if a proxy was configured use it for the connection
+            if (_configuration.GetHttpProxy() != null)
+            {                
+                socketsHttpHandler = new SocketsHttpHandler()
+                {
+                    Proxy = _configuration.GetHttpProxy(),
+                    PooledConnectionLifetime = _configuration.GetPooledConnectionLifetime()
+                };
+            }
+            else
+            {
+                socketsHttpHandler = new SocketsHttpHandler()
+                {
+                    PooledConnectionLifetime = _configuration.GetPooledConnectionLifetime()
+                };
+            }
+
+            _apiClient = new HttpClient(socketsHttpHandler);
+
             _apiClient.DefaultRequestHeaders.Accept.Clear();
             _apiClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
 
-            _authClient = new HttpClient(
-                new SocketsHttpHandler() { PooledConnectionLifetime = TimeSpan.FromMinutes(1) });
+            _authClient = new HttpClient(socketsHttpHandler);
+
             AuthenticationHeaderValue authHeaderValue = new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(
                     Encoding.GetEncoding("ISO-8859-1")
                     .GetBytes(_configuration.ClientId + ":" + _configuration.ClientSecret)));
+
             _authClient.DefaultRequestHeaders.Accept.Clear();
             _authClient.DefaultRequestHeaders.Accept.Add(jsonHeader);
             _authClient.DefaultRequestHeaders.Authorization = authHeaderValue;
+
             _authRequestContent = new FormUrlEncodedContent(
                 new Dictionary<string, string>
                 {
