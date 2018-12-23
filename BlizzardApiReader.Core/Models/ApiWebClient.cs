@@ -79,8 +79,8 @@ namespace BlizzardApiReader.Core
         {
             var client = new HttpClient(socketsHttpHandler);
 
-            _apiClient.DefaultRequestHeaders.Accept.Clear();
-            _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             return client;
         }
@@ -89,9 +89,9 @@ namespace BlizzardApiReader.Core
         {
             var client = new HttpClient(socketsHttpHandler);
 
-            _authClient.DefaultRequestHeaders.Accept.Clear();
-            _authClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _authClient.DefaultRequestHeaders.Authorization = header;
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = header;
 
             return client;
         }

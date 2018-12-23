@@ -4,11 +4,11 @@
 
 * Configure the API
 ```
-ApiConfiguration.CreateDefault()
+ApiConfiguration.Create()
   .SetClientId(clientId)
   .SetClientSecret(secret)
-  .SetLocale(locale)
   .SetRegion(region)
+  .SetLocale(locale)  
   .DeclareAsDefault();
 ```
 
