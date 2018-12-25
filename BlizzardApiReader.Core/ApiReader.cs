@@ -68,7 +68,7 @@ namespace BlizzardApiReader.Core
             }
 
             string urlRequest = parsePath(query);
-            IApiResponse response = await _webClient.MakeApiRequestAsync(Configuration + urlRequest);
+            IApiResponse response = await _webClient.MakeApiRequestAsync(Configuration.GetApiUrl() + urlRequest);
             limiters.NotifyAll(this, response);
 
             if (response.IsSuccessful())
