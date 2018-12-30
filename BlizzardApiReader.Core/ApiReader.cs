@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using BlizzardApiReader.Core.Exceptions;
+using Microsoft.Extensions.Options;
 
 namespace BlizzardApiReader.Core
 {
@@ -34,18 +35,11 @@ namespace BlizzardApiReader.Core
         private string _token;
         private DateTime _tokenExpiration;
 
-        public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
+        public ApiReader(IOptionsMonitor<ApiConfiguration> apiConfiguration, IWebClient webClient)
         {
-            if (webClient != null)
-            {
-                _webClient = webClient;
-            }
-            else
-            {
-                _webClient = new ApiWebClient();
-            }
-
-            Configuration = apiConfiguration;
+            _webClient = webClient;
+            
+            Configuration = apiConfiguration.CurrentValue;
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)

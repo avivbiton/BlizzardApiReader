@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlizzardApiReader.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +13,13 @@ namespace BlizzardApiReader.Core
     {
         private HttpClient _apiClient;
         private HttpClient _authClient;
+
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public ApiWebClient(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
 
         private readonly FormUrlEncodedContent _authRequestContent = new FormUrlEncodedContent(
@@ -76,21 +84,15 @@ namespace BlizzardApiReader.Core
         }
 
         private HttpClient configureApiClient()
-        {
-            var client = new HttpClient(socketsHttpHandler);
-
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+        {            
+            var client = _httpClientFactory.CreateClient(NamedHttpClients.ApiClient.ToString());         
             return client;
         }
 
         private HttpClient configureAuthClient(AuthenticationHeaderValue header)
         {
-            var client = new HttpClient(socketsHttpHandler);
+            var client = _httpClientFactory.CreateClient(NamedHttpClients.AuthClient.ToString());
 
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = header;
 
             return client;
