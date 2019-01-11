@@ -46,7 +46,7 @@ static void Main(string[] args)
         var services = new ServiceCollection();
 
         services.Configure<ApiConfiguration>(Options => 
-		  Options.SetClientId(clientId)
+          Options.SetClientId(clientId)
             .SetClientSecret(secret)
             .SetRegion(region)
             .SetLocale(locale));
