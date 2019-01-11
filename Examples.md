@@ -4,8 +4,8 @@
 
 * Configure the API in ConfigureServices
 ```
-services.Configure<ApiConfiguration>(Options => Options
-        .SetClientId(clientId)
+services.Configure<ApiConfiguration>(Options => 
+        Options.SetClientId(clientId)
         .SetClientSecret(secret)
         .SetRegion(region)
         .SetLocale(locale));
