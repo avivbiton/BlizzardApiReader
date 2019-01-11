@@ -24,7 +24,7 @@ namespace BlizzardApiReader.Core
             set
             {
                 apiConfiguration = value;
-                if(_webClient != null)
+                if (_webClient != null)
                 {
                     _webClient.Initialize(Configuration);
                 }
@@ -35,11 +35,16 @@ namespace BlizzardApiReader.Core
         private string _token;
         private DateTime _tokenExpiration;
 
-        public ApiReader(IOptionsMonitor<ApiConfiguration> apiConfiguration, IWebClient webClient)
+        public ApiReader()
+        {
+
+        }
+
+        public ApiReader(IOptions<ApiConfiguration> apiConfiguration, IWebClient webClient)
         {
             _webClient = webClient;
             
-            Configuration = apiConfiguration.CurrentValue;
+            Configuration = apiConfiguration.Value;
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)

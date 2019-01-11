@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Reflection;
+using Microsoft.Extensions.Options;
 
 namespace BlizzardApiReader.Core.Tests
 {
@@ -14,7 +15,7 @@ namespace BlizzardApiReader.Core.Tests
     public class ApiReaderTests
     {
 
-        private ApiConfiguration defaultConfig = ApiConfiguration.Create();
+        private IOptions<ApiConfiguration> defaultConfig =  Options.Create<ApiConfiguration>(new ApiConfiguration());
 
         [TestMethod]
         public void GetAsync_ShouldThrowIfInvalidTest()
