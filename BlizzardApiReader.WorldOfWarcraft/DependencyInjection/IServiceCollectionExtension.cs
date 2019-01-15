@@ -1,4 +1,5 @@
-﻿using BlizzardApiReader.Core.DependencyInjection;
+﻿using BlizzardApiReader.Core;
+using BlizzardApiReader.Core.DependencyInjection;
 
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,9 +11,9 @@ namespace BlizzardApiReader.WorldOfWarcraft
 {
     public static class IServiceCollectionExtension
     {
-        public static IServiceCollection AddBlizzardApiReaderWorldOfWarcraft(this IServiceCollection services)
+        public static IServiceCollection AddBlizzardApiReaderWorldOfWarcraft(this IServiceCollection services, HttpConfiguration httpConfiguration=null)
         {
-            services.AddBlizzardApiReader();
+            services.AddBlizzardApiReader(httpConfiguration);
             services.AddScoped<WorldOfWarcraftApi>();            
             return services;
         }
