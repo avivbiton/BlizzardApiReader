@@ -13,12 +13,7 @@ namespace BlizzardApiReader.WorldOfWarcraft
         {
             reader = apiReader;
         }
-
-        /*public WorldOfWarcraftApi(ApiConfiguration configuration)
-        {
-            reader = new ApiReader(configuration);
-        }*/
-
+        
         public void OverrideConfiguration(ApiConfiguration newConfiguration)
         {
             reader.Configuration = newConfiguration;
