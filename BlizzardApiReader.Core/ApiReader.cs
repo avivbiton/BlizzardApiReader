@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using BlizzardApiReader.Core.Exceptions;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using BlizzardApiReader.Core.Enums;
+using System.Net.Http.Headers;
 
 namespace BlizzardApiReader.Core
 {
@@ -22,37 +26,32 @@ namespace BlizzardApiReader.Core
             get { return apiConfiguration ?? defaultConfig; }
             set
             {
-                apiConfiguration = value;
-                if(_webClient != null)
-                {
-                    _webClient.Initialize(Configuration);
-                }
+                apiConfiguration = value;               
             }
         }
 
         private readonly IWebClient _webClient;
+        
         private string _token;
         private DateTime _tokenExpiration;
-
-        public ApiReader(ApiConfiguration apiConfiguration = null, IWebClient webClient = null)
+               
+        public ApiReader()
         {
-            if (webClient != null)
-            {
-                _webClient = webClient;
-            }
-            else
-            {
-                _webClient = new ApiWebClient();
-            }
 
-            Configuration = apiConfiguration;
+        }
+
+        public ApiReader(IOptions<ApiConfiguration> apiConfiguration, IWebClient webClient)
+        {
+            _webClient = webClient;
+            
+            Configuration = apiConfiguration.Value;                        
         }
 
         public static void SetDefaultConfiguration(ApiConfiguration configuration)
         {
             defaultConfig = configuration;
         }
-
+                
         public static void ClearDefaultConfiguration()
         {
             defaultConfig = null;

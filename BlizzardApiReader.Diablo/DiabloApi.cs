@@ -10,17 +10,12 @@ namespace BlizzardApiReader.Diablo
 
         private ApiReader reader;
 
-        public DiabloApi()
+        public DiabloApi(ApiReader apiReader)
         {
-            reader = new ApiReader();
+            reader =  apiReader;
             
         }
-
-        public DiabloApi(ApiConfiguration configuration)
-        {
-            reader = new ApiReader(configuration);
-        }
-
+                
         public void OverrideConfiguration(ApiConfiguration newConfiguration)
         {
             reader.Configuration = newConfiguration;
