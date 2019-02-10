@@ -4,10 +4,7 @@ using System.Text;
 
 namespace BlizzardApiReader.Starcraft2.Models
 {
-    public class Account
+    public class LadderMembership
     {
-
-
-
     }
 }

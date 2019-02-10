@@ -24,15 +24,21 @@ namespace BlizzardApiReader.Starcraft2
             reader.Configuration = newConfiguration;
         }
 
-        #region SC2 Account
-        public async Task<Account> GetAccountAsync(int accountId)
-        {
-            string query = $"/sc2/player/{accountId}";
-            return await reader.GetAsync<Account>(query);
-        }
+        #region SC2 ProfileAPI
+
+        #region SC2 Static
+        //TODO: implement "Static". 
+        //Returns all static SC2 profile data (achievements, categories, criteria, and rewards).
+        #endregion
+
+        #region SC2 MetaData
+        //TODO: implement "MetaData". 
+        //Returns metadata for an individual's profile.
         #endregion
 
         #region SC2 Profile
+        //TODO: implement "Ladder". STARTED
+        //Returns data about an individual SC2 profile.
         public async Task<Profile> GetProfileAsync(int regionID, int realmID, int profileId)
         {
             string query = $"/sc2/profile/{regionID}/{realmID}/{profileId}";
@@ -40,15 +46,55 @@ namespace BlizzardApiReader.Starcraft2
         }
         #endregion
 
-        #region SC2 League
-        public async Task<League> GetLeagueAsync(string seasonId, string queueId, string teamType, string leagueId)
+        #region SC2 LadderSummary
+        //TODO: implement "LadderSummary". 
+        //Returns a ladder summary for an individual SC2 profile.
+        //GET - /sc2/profile/:regionId/:realmId/:profileId/ladder/summary
+        #endregion
+
+        #region SC2 Ladder
+        //TODO: implement "Ladder". 
+        //Returns data about an individual profile's ladder.
+        //GET - /sc2/profile/:regionId/:realmId/:profileId/ladder/:ladderId
+        public async Task<Ladder> GetLadderAsync(int regionId, int realmId, int profileId, int ladderId, string locale = "en_US")
         {
-            string query = $"/data/sc2/league/{seasonId}/{queueId}/{teamType}/{leagueId}";
-            return await reader.GetAsync<League>(query);
+            string query = $"/sc2/profile/{regionId}/{realmId}/{profileId}/{ladderId}";
+            return await reader.GetAsync<Ladder>(query);
+        }
+        #endregion
+        #endregion
+
+        #region SC2 LadderAPI
+
+        #region SC2 GrandmasterLeaderboard
+        public async Task<List<GrandmasterLeaderboard>> GetGrandmasterLeaderboardAsync(int regionID)
+        {
+            string query = $"/sc2/ladder/grandmaster/{regionID}";
+            var results = await reader.GetAsync<Dictionary<string, List<GrandmasterLeaderboard>>>(query);
+            return results["ladderTeams"];
         }
         #endregion
 
+        #region SC2 Season
+        public async Task<Season> GetSeasonAsync(int regionID)
+        {
+            string query = $"/sc2/ladder/season/{regionID}";
+            return await reader.GetAsync<Season>(query);
+        }
+        #endregion
 
+        #endregion
 
+        #region SC2 AccountAPI
+
+        #region SC2 Player
+        public async Task<Player> GetPlayerAsync(int playerId)
+        {
+            string query = $"/sc2/player/{playerId}";
+            return await reader.GetAsync<Player>(query);
+        }
+        #endregion
+
+        #endregion
     }
 }
