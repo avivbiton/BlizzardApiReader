@@ -37,8 +37,17 @@ namespace BlizzardApiReader.Starcraft2
         #endregion
 
         #region SC2 Profile
-        //TODO: implement "Ladder". STARTED
+        //TODO: implement "Profile".
         //Returns data about an individual SC2 profile.
+        //summary - done
+        //snapshot - done
+        //career - done
+        //swarmLevels - done
+        //campaign - started
+        //categoryPointProgress - started
+        //achievementShowcase - returned empty object
+        //earnedRewards - started
+        //earnedAchievements - started
         public async Task<Profile> GetProfileAsync(int regionID, int realmID, int profileId)
         {
             string query = $"/sc2/profile/{regionID}/{realmID}/{profileId}";
@@ -82,7 +91,6 @@ namespace BlizzardApiReader.Starcraft2
             return await reader.GetAsync<Season>(query);
         }
         #endregion
-
         #endregion
 
         #region SC2 AccountAPI
