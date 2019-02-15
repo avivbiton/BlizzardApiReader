@@ -18,7 +18,7 @@ namespace BlizzardApiReader.Starcraft2
         {
             reader = new ApiReader(configuration);
         }
-
+        
         public void OverrideConfiguration(ApiConfiguration newConfiguration)
         {
             reader.Configuration = newConfiguration;
@@ -29,11 +29,22 @@ namespace BlizzardApiReader.Starcraft2
         #region SC2 Static
         //TODO: implement "Static". 
         //Returns all static SC2 profile data (achievements, categories, criteria, and rewards).
+        //GET - /sc2/static/profile/:regionId
+        public async Task<Static> GetStaticAsync(int regionID)
+        {
+            string query = $"/sc2/static/profile/{regionID}";
+            return await reader.GetAsync<Static>(query);
+        }
         #endregion
 
         #region SC2 MetaData
-        //TODO: implement "MetaData". 
         //Returns metadata for an individual's profile.
+        //GET - /sc2/metadata/profile/:regionId/:realmId/:profileId
+        public async Task<MetaData> GetMetaDataAsync(int regionID, int realmID, int profileId)
+        {
+            string query = $"/sc2/metadata/profile/{regionID}/{realmID}/{profileId}";
+            return await reader.GetAsync<MetaData>(query);
+        }
         #endregion
 
         #region SC2 Profile

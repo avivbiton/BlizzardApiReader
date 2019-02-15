@@ -14,7 +14,7 @@ namespace BlizzardApiReader.Starcraft2.Models
         public IList<Category> CategoryPointProgress { get; set; }
         //public AchievementShowcase AchievementShowcase { get; set; }
         public IList<Reward> EarnedRewards { get; set; }
-        public IList<Achievement> EarnedAchievements { get; set; }
+        public IList<EarnedAchievement> EarnedAchievements { get; set; }
     }
 
     public class Category
@@ -32,7 +32,7 @@ namespace BlizzardApiReader.Starcraft2.Models
 
     }
 
-    public class Achievement
+    public class EarnedAchievement
     {
         public string AchievementId { get; set; }
         public string CompletionDate { get; set; } //handle -9223372036854776000 value
