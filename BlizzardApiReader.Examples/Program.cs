@@ -10,6 +10,7 @@ using BlizzardApiReader.WorldOfWarcraft;
 using BlizzardApiReader.WorldOfWarcraft.Models;
 using BlizzardApiReader.Starcraft2;
 using BlizzardApiReader.Starcraft2.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlizzardApiReader.Examples
 {
@@ -23,21 +24,36 @@ namespace BlizzardApiReader.Examples
             int sc2ID = 8323934;
             string bt = "oisinmcl#2126";
 
-            ApiConfiguration.Create()
-                              .SetClientId(clientId)
-                              .SetClientSecret(secret)
-                              .SetRegion(Region.Europe)
-                              .SetLocale(Locale.BritishEnglish)
-                              .DeclareAsDefault();
 
-            //For Diablo API
-            var d3api = new DiabloApi();
 
-            //For World of Warcraft API
-            var wowApi = new WorldOfWarcraftApi();
+            var services = new ServiceCollection();
 
-            //For Starcraft 2 API
-            var sc2Api = new Starcraft2Api();
+            services.Configure<ApiConfiguration>(Options =>
+                                                Options.SetClientId(clientId)
+                                                .SetClientSecret(secret)
+                                                .SetRegion(Region.Europe)
+                                                .SetLocale(Locale.BritishEnglish));
+
+
+            services.AddBlizzardApiReaderDiablo();
+            services.AddBlizzardApiReaderWorldOfWarcraft();
+            services.AddBlizzardApiReaderStarcraft2();
+
+            var provider = services.BuildServiceProvider();
+
+            var d3api = provider.GetService<DiabloApi>();
+            var wowApi = provider.GetService<WorldOfWarcraftApi>();
+            var sc2Api = provider.GetService<Starcraft2Api>();
+
+
+            ////For Diablo API
+            //var d3api = new DiabloApi();
+
+            ////For World of Warcraft API
+            //var wowApi = new WorldOfWarcraftApi();
+
+            ////For Starcraft 2 API
+            //var sc2Api = new Starcraft2Api();
 
             Task.Run(async () =>
             {

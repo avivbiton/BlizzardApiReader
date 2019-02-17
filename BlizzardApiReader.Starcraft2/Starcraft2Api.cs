@@ -9,20 +9,16 @@ namespace BlizzardApiReader.Starcraft2
     {
         private ApiReader reader;
 
-        public Starcraft2Api()
+        public Starcraft2Api(ApiReader apiReader)
         {
-            reader = new ApiReader();
-        }
-
-        public Starcraft2Api(ApiConfiguration configuration)
-        {
-            reader = new ApiReader(configuration);
+            reader = apiReader;
         }
         
         public void OverrideConfiguration(ApiConfiguration newConfiguration)
         {
             reader.Configuration = newConfiguration;
         }
+
 
         #region SC2 ProfileAPI
 
