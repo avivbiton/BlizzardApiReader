@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{333FBEFD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.Starcraft2", "BlizzardApiReader.Starcraft2\BlizzardApiReader.Starcraft2.csproj", "{52EA2080-D6CC-4E85-9978-4C376B3CCCE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlizzardApiReader.Examples", "BlizzardApiReader.Examples\BlizzardApiReader.Examples.csproj", "{B5D45D7F-FBC5-46DA-A818-BE6BEC5D5DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlizzardApiReader.Examples", "BlizzardApiReader.Examples\BlizzardApiReader.Examples.csproj", "{B5D45D7F-FBC5-46DA-A818-BE6BEC5D5DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

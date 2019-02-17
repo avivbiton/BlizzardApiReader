@@ -7,23 +7,23 @@ namespace BlizzardApiReader.Starcraft2.Models
     public class Profile
     {
         public ProfileSummary Summary { get; set; }
-        public ProfilleSnapshot Snapshot { get; set; }
+        public ProfileSnapshot Snapshot { get; set; }
         public Career Career { get; set; }
         public SwarmLevels SwarmLevels { get; set; }
         public Campaign Campaign { get; set; }
-        public IList<Category> CategoryPointProgress { get; set; }
+        public IList<CategoryPoint> CategoryPointProgress { get; set; }
         //public AchievementShowcase AchievementShowcase { get; set; }
-        public IList<Reward> EarnedRewards { get; set; }
+        public IList<EarnedReward> EarnedRewards { get; set; }
         public IList<EarnedAchievement> EarnedAchievements { get; set; }
     }
 
-    public class Category
+    public class CategoryPoint
     {
         public int CategoryId { get; set; }
         public int PointsEarned { get; set; }
     }
 
-    public class Reward
+    public class EarnedReward
     {
         public long RewardId { get; set; }
         public bool Selected { get; set; }
@@ -40,11 +40,11 @@ namespace BlizzardApiReader.Starcraft2.Models
         public int TotalAchievementsInSeries { get; set; }
         public bool IsComplete { get; set; }
         public bool InProgress { get; set; }
-        public IList<Criteria> EarnedRewards { get; set; }
+        public IList<Criterion> EarnedRewards { get; set; }
 
     }
 
-    public class Criteria
+    public class Criterion
     {
         public string CriterionId { get; set; }
         public Earned Earned { get; set; }

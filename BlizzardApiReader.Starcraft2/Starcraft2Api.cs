@@ -27,9 +27,6 @@ namespace BlizzardApiReader.Starcraft2
         #region SC2 ProfileAPI
 
         #region SC2 Static
-        //TODO: implement "Static". 
-        //Returns all static SC2 profile data (achievements, categories, criteria, and rewards).
-        //GET - /sc2/static/profile/:regionId
         public async Task<Static> GetStaticAsync(int regionID)
         {
             string query = $"/sc2/static/profile/{regionID}";
@@ -38,8 +35,6 @@ namespace BlizzardApiReader.Starcraft2
         #endregion
 
         #region SC2 MetaData
-        //Returns metadata for an individual's profile.
-        //GET - /sc2/metadata/profile/:regionId/:realmId/:profileId
         public async Task<MetaData> GetMetaDataAsync(int regionID, int realmID, int profileId)
         {
             string query = $"/sc2/metadata/profile/{regionID}/{realmID}/{profileId}";
@@ -48,17 +43,8 @@ namespace BlizzardApiReader.Starcraft2
         #endregion
 
         #region SC2 Profile
-        //TODO: implement "Profile".
-        //Returns data about an individual SC2 profile.
-        //summary - done
-        //snapshot - done
-        //career - done
-        //swarmLevels - done
-        //campaign - started
-        //categoryPointProgress - started
+        //TODO: implement "Profile.achievementShowcase".
         //achievementShowcase - returned empty object
-        //earnedRewards - started
-        //earnedAchievements - started
         public async Task<Profile> GetProfileAsync(int regionID, int realmID, int profileId)
         {
             string query = $"/sc2/profile/{regionID}/{realmID}/{profileId}";
@@ -70,6 +56,11 @@ namespace BlizzardApiReader.Starcraft2
         //TODO: implement "LadderSummary". 
         //Returns a ladder summary for an individual SC2 profile.
         //GET - /sc2/profile/:regionId/:realmId/:profileId/ladder/summary
+        public async Task<LadderSummary> GetLadderSummaryAsync(int regionId, int realmId, int profileId, int ladderId, string locale = "en_US")
+        {
+            string query = $"/sc2/profile/{regionId}/{realmId}/{profileId}/{ladderId}/ladder/summary";
+            return await reader.GetAsync<LadderSummary>(query);
+        }
         #endregion
 
         #region SC2 Ladder
@@ -78,7 +69,7 @@ namespace BlizzardApiReader.Starcraft2
         //GET - /sc2/profile/:regionId/:realmId/:profileId/ladder/:ladderId
         public async Task<Ladder> GetLadderAsync(int regionId, int realmId, int profileId, int ladderId, string locale = "en_US")
         {
-            string query = $"/sc2/profile/{regionId}/{realmId}/{profileId}/{ladderId}";
+            string query = $"/sc2/profile/{regionId}/{realmId}/{profileId}/ladder/{ladderId}";
             return await reader.GetAsync<Ladder>(query);
         }
         #endregion

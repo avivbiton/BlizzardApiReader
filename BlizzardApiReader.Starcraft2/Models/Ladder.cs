@@ -8,15 +8,17 @@ namespace BlizzardApiReader.Starcraft2.Models
     {
         public IList<LadderTeam> LadderTeams { get; set; }
         public IList<LadderMembership> AllLadderMemberships { get; set; }
-        public IList<RanksAndPool> RanksAndPools { get; set; }
+        public IList<RankAndPool> RanksAndPools { get; set; }
 
     }
 
     public class LadderTeam
     {
+
     }
 
-    public class RanksAndPool
+    public class RankAndPool
     {
+
     }
 }

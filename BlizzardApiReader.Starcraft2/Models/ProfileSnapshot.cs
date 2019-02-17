@@ -6,24 +6,25 @@ using Newtonsoft.Json.Serialization;
 
 namespace BlizzardApiReader.Starcraft2.Models
 {
-    public class ProfilleSnapshot
+    public class ProfileSnapshot
     {
-        public SeasonSnapshot SeasonSnapshot { get; set; }
+        //public SeasonSnapshot SeasonSnapshot { get; set; }
+        public Dictionary<string, Snapshot> SeasonSnapshot { get; set; }
         public int TotalRankedSeasonGamesPlayed { get; set; }
     }
 
-    public class SeasonSnapshot
-    {
-        [JsonProperty("1v1")]
-        public Snapshot OnevOne { get; set; }
-        [JsonProperty("2v2")]
-        public Snapshot TwovTwo { get; set; }
-        [JsonProperty("3v3")]
-        public Snapshot ThreevThree { get; set; }
-        [JsonProperty("4v4")]
-        public Snapshot FourvFour { get; set; }
-        public Snapshot Archon { get; set; }
-    }
+    //public class SeasonSnapshot
+    //{
+    //    [JsonProperty("1v1")]
+    //    public Snapshot OnevOne { get; set; }
+    //    [JsonProperty("2v2")]
+    //    public Snapshot TwovTwo { get; set; }
+    //    [JsonProperty("3v3")]
+    //    public Snapshot ThreevThree { get; set; }
+    //    [JsonProperty("4v4")]
+    //    public Snapshot FourvFour { get; set; }
+    //    public Snapshot Archon { get; set; }
+    //}
 
     public class Snapshot
     {
