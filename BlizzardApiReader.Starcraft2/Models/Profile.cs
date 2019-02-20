@@ -10,8 +10,10 @@ namespace BlizzardApiReader.Starcraft2.Models
         public ProfileSnapshot Snapshot { get; set; }
         public Career Career { get; set; }
         public SwarmLevels SwarmLevels { get; set; }
-        public Campaign Campaign { get; set; }
+        //TODO: Implement Campaign
+        //public Campaign Campaign { get; set; }
         public IList<CategoryPoint> CategoryPointProgress { get; set; }
+        //TODO: Implement AchievementShowcase
         //public AchievementShowcase AchievementShowcase { get; set; }
         public IList<EarnedReward> EarnedRewards { get; set; }
         public IList<EarnedAchievement> EarnedAchievements { get; set; }
