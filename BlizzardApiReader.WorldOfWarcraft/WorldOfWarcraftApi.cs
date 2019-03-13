@@ -94,13 +94,40 @@ namespace BlizzardApiReader.WorldOfWarcraft
         #endregion
 
         #region Character Profile
-        public async Task<Character> GetCharacterAsync(string realm, string characterName)
+        public async Task<Character> GetCharacterAsync(string realm, string characterName, string fields=null)
         {
             string query = $"/wow/character/{realm}/{characterName}";
-            return await reader.GetAsync<Character>(query);
+
+            if (fields is null)
+            {            
+                return await reader.GetAsync<Character>(query);
+            } else
+            {
+                return await reader.GetAsync<Character>(query,"&fields="+fields);
+            }
         }
 
 
-        #endregion 
+
+        #endregion
+
+        #region Guild Profile
+        public async Task<Guild> GetGuildAsync(string realm, string guildName, string fields = null)
+        {
+            string query = $"/wow/guild/{realm}/{guildName}";
+
+            if (fields is null)
+            {
+                return await reader.GetAsync<Guild>(query);
+            }
+            else
+            {
+                return await reader.GetAsync<Guild>(query, "&fields=" + fields);
+            }
+        }
+
+        //TODO Members, Achievements, News Challenge
+
+        #endregion
     }
 }

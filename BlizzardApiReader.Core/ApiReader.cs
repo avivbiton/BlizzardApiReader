@@ -57,7 +57,7 @@ namespace BlizzardApiReader.Core
             defaultConfig = null;
         }
 
-        public async Task<T> GetAsync<T>(string query)
+        public async Task<T> GetAsync<T>(string query, string additionalParams=null)
         {
             throwIfInvalidRequest();
 
@@ -66,7 +66,7 @@ namespace BlizzardApiReader.Core
                 await SendTokenRequest();
             }
 
-            string urlRequest = parsePath(query);
+            string urlRequest = parsePath(query,additionalParams);
             IApiResponse response = await _webClient.MakeApiRequestAsync(Configuration.GetApiUrl() + urlRequest);
             limiters.NotifyAll(this, response);
 
@@ -130,11 +130,22 @@ namespace BlizzardApiReader.Core
         }
 
 
-        private string parsePath(string query)
+        private string parsePath(string query, string addtionalParams=null)
         {
-            return parseSpecialCharacters(query) 
-                + "?locale=" + Configuration.GetLocaleString() 
+            if (addtionalParams is null)
+            {
+                return parseSpecialCharacters(query)
+                + "?locale=" + Configuration.GetLocaleString()
                 + "&access_token=" + _token;
+            }
+            else
+            {
+                return parseSpecialCharacters(query)
+                + "?locale=" + Configuration.GetLocaleString()
+                + "&access_token=" + _token
+                + addtionalParams;
+            }
+        
         }
 
 
