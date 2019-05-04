@@ -16,7 +16,8 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         public int Level { get; set; }
         public int Side { get; set; }
-             
+
+        [JsonConverter(typeof(GuildMembersConverter))]
         public GuildMember[] Members { get; set; }
 
         //Field=achievements
@@ -24,5 +25,29 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         //Field=news
         public GuildNewsItem[] News { get; set; }
-    }    
+    }
+
+    class GuildMembersConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(GuildMember[]));
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            JToken token = JToken.Load(reader);
+            if (token.Type == JTokenType.Array)
+            {
+                return token.ToObject<GuildMember[]>();
+            }
+            
+            return null;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            serializer.Serialize(writer, value);
+        }
+    }
 }

@@ -45,19 +45,13 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         //Field=feed
         public CharacterFeedItem[] Feed { get; set; }
-
-        //Field=guild
-        [JsonProperty("guild")]
-        [JsonConverter(typeof(GuildConverter))]
-        public CharacterGuild Guild { get; set; }
-
-        /* TODO: Review how can we get the guild when it comes as a name (string) instead as an object and put in other property
-        [JsonProperty("guild")]        
-        public string Guild { get; set; }        
-
-        public string GuildRealm { get; set; }
-        */
         
+        //Field=guild        
+        [JsonConverter(typeof(GuildConverter))]
+        public Guild Guild { get; set; }
+                
+        public string GuildRealm { set { this.Guild.Realm = value; } }
+               
         //Field=hunterPets
         public HunterPet[] HunterPets { get; set; }
 
@@ -105,7 +99,7 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(CharacterGuild));
+            return (objectType == typeof(Guild) || objectType == typeof(String));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -113,7 +107,16 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
             JToken token = JToken.Load(reader);
             if (token.Type == JTokenType.Object)
             {
-                return token.ToObject<CharacterGuild>();
+                return token.ToObject<Guild>();
+            }
+
+            if (token.Type == JTokenType.String)
+            {
+                Guild g = new Guild
+                {
+                    Name = token.ToString()
+                };
+                return g;
             }
             return null;
         }
