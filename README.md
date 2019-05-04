@@ -2,6 +2,9 @@
 
 # Blizzard ApiReader
 C# .net Core library wrapper for Blizzard Public APIs
+UPDATE:   
+I do not maintain this repo regulary anymore. But will still keep track of pull requests and issues that come up.  
+Currently, I do not have plans to re-visit it but I may some time in the future will come back and update it properly.
 
 # First timers friendly
 As I am also new to open source projects, I want to make this project first-timer friendly as much as possible.
