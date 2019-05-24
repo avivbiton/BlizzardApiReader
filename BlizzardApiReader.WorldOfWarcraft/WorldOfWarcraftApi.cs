@@ -129,5 +129,25 @@ namespace BlizzardApiReader.WorldOfWarcraft
         //TODO Members, Achievements, News Challenge
 
         #endregion
+
+        #region Items
+        public async Task<Item> GetItemAsync(int itemId)
+        {
+            string query = $"/wow/item/{itemId}";
+
+            return await reader.GetAsync<Item>(query);
+            
+        }
+
+        public async Task<ItemSet> GetItemSetAsync(int setId)
+        {
+            string query = $"/wow/item/set/{setId}";
+
+            return await reader.GetAsync<ItemSet>(query);
+            
+        }
+
+        #endregion
+
     }
 }
