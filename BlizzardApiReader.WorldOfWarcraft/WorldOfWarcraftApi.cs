@@ -137,5 +137,39 @@ namespace BlizzardApiReader.WorldOfWarcraft
 
         #endregion
 
+        //Pending:  Pvp, Quest, Recipe, User, Zone, DataSources
+
+        #region Pet
+
+        public async Task<List<Pet>> GetPetsAsync()
+        {
+            string query = $"/wow/pet/";
+            
+            var results = await reader.GetAsync<Dictionary<string, List<Pet>>>(query);
+            return results["pets"];
+        }
+
+        public async Task<PetAbility> GetPetAbilityAsync(int abilityId){
+            string query = $"/wow/pet/ability/{abilityId}";
+
+            return await reader.GetAsync<PetAbility>(query);
+            
+        }
+
+        public async Task<PetSpecies> GetPetSpeciesAsync(int petSpeciesId){
+            string query = $"/wow/pet/species/{petSpeciesId}";
+
+            return await reader.GetAsync<PetSpecies>(query);
+            
+        }
+
+        public async Task<PetStats> GetPetStatsAsync(int petSpeciesId,int level,int breedId,int qualityId){
+            string query = $"/wow/pet/stats/{petSpeciesId}";
+
+            return await reader.GetAsync<PetStats>(query,$"&level={level}&breedId={breedId}&qualityId={qualityId}");
+            
+        }
+
+        #endregion
     }
 }
