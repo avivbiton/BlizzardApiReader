@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BlizzardApiReader.Core;
 using BlizzardApiReader.WorldOfWarcraft.Models;
+using BlizzardApiReader.WorldOfWarcraft.Enums;
 
 namespace BlizzardApiReader.WorldOfWarcraft
 {
@@ -94,17 +95,12 @@ namespace BlizzardApiReader.WorldOfWarcraft
         #endregion
 
         #region Character Profile
-        public async Task<Character> GetCharacterAsync(string realm, string characterName, string fields=null)
+        public async Task<Character> GetCharacterAsync(string realm, string characterName, CharacterOptions characterOptions=CharacterOptions.None)
         {
             string query = $"/wow/character/{realm}/{characterName}";
-
-            if (fields is null)
-            {            
-                return await reader.GetAsync<Character>(query);
-            } else
-            {
-                return await reader.GetAsync<Character>(query,"&fields="+fields);
-            }
+            
+            return await reader.GetAsync<Character>(query,CharacterFields.BuildOptionalFields(characterOptions));
+            
         }
 
 
@@ -112,21 +108,13 @@ namespace BlizzardApiReader.WorldOfWarcraft
         #endregion
 
         #region Guild Profile
-        public async Task<Guild> GetGuildAsync(string realm, string guildName, string fields = null)
+        public async Task<Guild> GetGuildAsync(string realm, string guildName, GuildOptions guildOptions = GuildOptions.None)
         {
             string query = $"/wow/guild/{realm}/{guildName}";
 
-            if (fields is null)
-            {
-                return await reader.GetAsync<Guild>(query);
-            }
-            else
-            {
-                return await reader.GetAsync<Guild>(query, "&fields=" + fields);
-            }
-        }
-
-        //TODO Members, Achievements, News Challenge
+            return await reader.GetAsync<Guild>(query, GuildFields.BuildOptionalFields(guildOptions));
+            
+        }   
 
         #endregion
 
