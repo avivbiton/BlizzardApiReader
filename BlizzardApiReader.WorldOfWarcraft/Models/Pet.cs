@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BlizzardApiReader.WorldOfWarcraft.Enums;
 
 namespace BlizzardApiReader.WorldOfWarcraft.Models
 {
@@ -32,5 +33,4 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
     
 
     }
-    public enum PetFamily { Beast, Critter, Dragonkin, Elemental, Flying, Humanoid, Magical, Mechanical, Undead, Water };
 }
