@@ -25,6 +25,9 @@ namespace BlizzardApiReader.WorldOfWarcraft.Models
 
         //Field=news
         public GuildNewsItem[] News { get; set; }
+
+        //Field=challenge
+        public Challenge[] Challenge { get; set; }
     }
 
     class GuildMembersConverter : JsonConverter
