@@ -1,0 +1,145 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Hearthstone\\BlizzardApiReader.Hearthstone.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\BlizzardApiReader.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\BlizzardApiReader.Core.csproj",
+        "projectName": "BlizzardApiReader.Core",
+        "projectPath": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\BlizzardApiReader.Core.csproj",
+        "packagesPath": "C:\\Users\\yuris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yuris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Hearthstone\\BlizzardApiReader.Hearthstone.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Hearthstone\\BlizzardApiReader.Hearthstone.csproj",
+        "projectName": "BlizzardApiReader.Hearthstone",
+        "projectPath": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Hearthstone\\BlizzardApiReader.Hearthstone.csproj",
+        "packagesPath": "C:\\Users\\yuris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Hearthstone\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yuris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\BlizzardApiReader.Core.csproj": {
+                "projectPath": "C:\\Users\\yuris\\Desktop\\BlizzardApiReader\\BlizzardApiReader.Core\\BlizzardApiReader.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
